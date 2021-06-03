@@ -7,6 +7,7 @@ import lombok.NonNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -43,6 +44,10 @@ public class User implements Serializable {
     private Set<Role> roles;
 
     private Boolean deleted;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "create_at")
+    private Date create_at_register;
 
     @Override
     public String toString() {
