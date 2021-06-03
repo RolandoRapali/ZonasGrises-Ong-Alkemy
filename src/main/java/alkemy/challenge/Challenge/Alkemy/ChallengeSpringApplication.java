@@ -10,6 +10,7 @@ public class ChallengeSpringApplication {
 
 
 	public static void main(String[] args) {
+                System.out.println("alkemy.challenge.Challenge.Alkemy.ChallengeSpringApplication.main()");
 		SpringApplication.run(ChallengeSpringApplication.class, args);
 	}
 
