@@ -14,7 +14,7 @@ import org.hibernate.annotations.Where;
 @Data
 @Entity
 @Table(name = "members")
-@SQLDelete(sql = "UPDATE members SET deleted = true WHERE id_models=?")
+@SQLDelete(sql = "UPDATE members SET deleted = true WHERE id_menbers=?")
 @Where(clause = "deleted=false")
 public class Members implements Serializable {
 
@@ -22,7 +22,7 @@ public class Members implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_models;
+    private Long id_members;
 
     @NotNull
     @NotEmpty
