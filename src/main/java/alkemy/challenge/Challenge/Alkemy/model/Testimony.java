@@ -1,22 +1,31 @@
 package alkemy.challenge.Challenge.Alkemy.model;
 
-import com.sun.istack.NotNull;
-import com.sun.istack.Nullable;
-import lombok.Data;
-import org.hibernate.annotations.*;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+
+import org.hibernate.annotations.*;
+
+
+import javax.persistence.*;
+
 import java.io.Serializable;
 import java.sql.Date;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "db_testimonials")
 @SQLDelete(sql = "UPDATE db_testimonials SET deleted WHERE name =?")
 @FilterDef(name = "deletedTestimonyFilter", parameters = @ParamDef(name = "isDeleted", type =
-"boolean"))
+        "boolean"))
 @Filter(name = "deletedTestimonyFilter", condition = "deleted = :isDeleted")
 public class Testimony implements Serializable {
 
@@ -26,11 +35,9 @@ public class Testimony implements Serializable {
     @Column(name = "NAME")
     private String name;
 
-    @Nullable
     @Column(name = "IMAGE")
     private String image;
 
-    @Nullable
     @Column(name = "CONTENT")
     private String content;
 
