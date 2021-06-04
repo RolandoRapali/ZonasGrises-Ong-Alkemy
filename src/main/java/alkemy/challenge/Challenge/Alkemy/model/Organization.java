@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "organization")
 public class Organization implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
