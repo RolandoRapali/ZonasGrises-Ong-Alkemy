@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/a/users")
+    @GetMapping("a/users")
     public String getUsers(Model model) {
         List<User> usersList = userService.listUsers();
         model.addAttribute("users", new User());
