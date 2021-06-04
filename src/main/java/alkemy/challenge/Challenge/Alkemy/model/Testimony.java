@@ -12,6 +12,8 @@ import java.io.Serializable;
 import java.sql.Date;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "db_testimonials")
 @SQLDelete(sql = "UPDATE db_testimonials SET deleted WHERE name =?")
