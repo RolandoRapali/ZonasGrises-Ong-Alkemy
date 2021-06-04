@@ -1,8 +1,7 @@
 package alkemy.challenge.Challenge.Alkemy.model;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +11,9 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
 @Getter
@@ -20,12 +21,11 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor
 @Table(name="CATEGORIES")
 @Entity
-@SQLDelete(sql = "UPDATE table_CATEGORIES SET deleted = true WHERE ID_CATEGORIES=?")
+@SQLDelete(sql = "UPDATE CATEGORIES SET deleted = true WHERE ID_CATEGORIES=?")
 @Where(clause = "deleted=false")
 public class CategoriesModel implements Serializable{
-    private static final long serialVersionUID = 1L;
     
-    SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd.HH:mm:ss");
+    private static final long serialVersionUID = 1L;
     
     @Id
     @Column(name="ID_CATEGORIES")
@@ -41,8 +41,12 @@ public class CategoriesModel implements Serializable{
     @Column(name="IMAGES")
     private String images;
     
-    private String timeStamp = date.format(new Date());
+    @CreationTimestamp
+    private Timestamp regdate;
+    @UpdateTimestamp
+    private Timestamp updatedate;
     
+    @Column(name = "DELETE")
     private boolean delete = Boolean.FALSE;
     
 }
