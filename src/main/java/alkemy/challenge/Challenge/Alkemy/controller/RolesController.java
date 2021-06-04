@@ -7,7 +7,8 @@ import alkemy.challenge.Challenge.Alkemy.repository.RolesRepository;
 
 @Controller
 public class RolesController {
+
     @Autowired
     private RolesRepository rolesRepository;
-    
+
 }

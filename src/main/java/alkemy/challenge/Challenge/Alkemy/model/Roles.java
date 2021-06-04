@@ -16,18 +16,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 @Data
-@Getter@Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Roles implements Serializable{
+public class Roles implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "name_id")
     private Long id;
     private String name;
-    private String description; 
-    
-    private static final long serialVersionUID = 1L; 
+    private String description;
+
+    private static final long serialVersionUID = 1L;
 }

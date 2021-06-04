@@ -19,34 +19,34 @@ import org.hibernate.annotations.Where;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name="CATEGORIES")
+@Table(name = "categories")
 @Entity
-@SQLDelete(sql = "UPDATE CATEGORIES SET deleted = true WHERE ID_CATEGORIES=?")
+@SQLDelete(sql = "UPDATE categories SET deleted = true WHERE id_categories=?")
 @Where(clause = "deleted=false")
-public class CategoriesModel implements Serializable{
-    
+public class Categories implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @Column(name="ID_CATEGORIES")
+    @Column(name = "id_categories")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(name="NAMES")
+
+    @Column(name = "names")
     private String names;
-    
-    @Column(name="DESCRIPTION")
+
+    @Column(name = "description")
     private String description;
-    
-    @Column(name="IMAGES")
+
+    @Column(name = "images")
     private String images;
-    
+
     @CreationTimestamp
     private Timestamp regdate;
     @UpdateTimestamp
     private Timestamp updatedate;
-    
-    @Column(name = "DELETE")
+
+    @Column(name = "delete")
     private boolean delete = Boolean.FALSE;
-    
+
 }

@@ -1,10 +1,10 @@
 package alkemy.challenge.Challenge.Alkemy.repository;
 
-import alkemy.challenge.Challenge.Alkemy.model.CategoriesModel;
+import alkemy.challenge.Challenge.Alkemy.model.Categories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository("repository")
-public interface CategoriesRepository extends JpaRepository<CategoriesModel, Long> {
-    
+@Repository
+public interface CategoriesRepository extends JpaRepository<Categories, Long> {
+
 }

@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class News implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "news_id")
@@ -27,7 +28,7 @@ public class News implements Serializable {
     private LocalDate date;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "news_category_id")
-    private Category categoryId;
+    private Categories categoryId;
     private boolean isDeleted;
 
     private static final long serialVersionUID = 1L;

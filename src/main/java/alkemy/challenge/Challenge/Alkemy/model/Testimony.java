@@ -1,20 +1,13 @@
 package alkemy.challenge.Challenge.Alkemy.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-
 import org.hibernate.annotations.*;
-
-
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -24,21 +17,21 @@ import java.sql.Date;
 @Entity
 @Table(name = "db_testimonials")
 @SQLDelete(sql = "UPDATE db_testimonials SET deleted WHERE name =?")
-@FilterDef(name = "deletedTestimonyFilter", parameters = @ParamDef(name = "isDeleted", type =
-        "boolean"))
+@FilterDef(name = "deletedTestimonyFilter", parameters = @ParamDef(name = "isDeleted", type
+        = "boolean"))
 @Filter(name = "deletedTestimonyFilter", condition = "deleted = :isDeleted")
 public class Testimony implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "IMAGE")
+    @Column(name = "image")
     private String image;
 
-    @Column(name = "CONTENT")
+    @Column(name = "content")
     private String content;
 
     @Column
@@ -54,6 +47,5 @@ public class Testimony implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "update_date")
     private Date updatedDate;
-
 
 }
