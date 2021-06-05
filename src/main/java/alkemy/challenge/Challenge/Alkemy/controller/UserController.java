@@ -16,8 +16,12 @@ import java.util.Optional;
 @RequestMapping("/users")
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteUserById(@PathVariable Long id) {
