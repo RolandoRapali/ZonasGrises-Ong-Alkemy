@@ -2,9 +2,7 @@ package alkemy.challenge.Challenge.Alkemy.repository;
 
 import alkemy.challenge.Challenge.Alkemy.dto.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
