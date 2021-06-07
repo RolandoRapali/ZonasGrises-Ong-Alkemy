@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -20,8 +21,11 @@ public class News implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "news_id")
     private Long id;
+    @NotNull
     private String name;
+    @NotNull
     private String image;
+    @NotNull
     @Column(columnDefinition = "text")
     private String content;
     @CreationTimestamp
