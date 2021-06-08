@@ -33,7 +33,7 @@ public class Categories implements Serializable {
     private Long id;
 
     @Column(name = "names")
-    private String names;
+    private String name;
 
     @Column(name = "description")
     private String description;
