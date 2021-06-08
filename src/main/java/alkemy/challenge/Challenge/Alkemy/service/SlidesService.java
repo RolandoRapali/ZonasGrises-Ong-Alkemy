@@ -2,7 +2,9 @@ package alkemy.challenge.Challenge.Alkemy.service;
 
 import alkemy.challenge.Challenge.Alkemy.model.Slides;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface SlidesService {
 
     public List<Slides> listSlides();
