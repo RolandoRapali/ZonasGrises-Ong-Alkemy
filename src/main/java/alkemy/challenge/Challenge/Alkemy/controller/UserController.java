@@ -1,6 +1,6 @@
 package alkemy.challenge.Challenge.Alkemy.controller;
 
-import alkemy.challenge.Challenge.Alkemy.dto.User;
+import alkemy.challenge.Challenge.Alkemy.model.User;
 import alkemy.challenge.Challenge.Alkemy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

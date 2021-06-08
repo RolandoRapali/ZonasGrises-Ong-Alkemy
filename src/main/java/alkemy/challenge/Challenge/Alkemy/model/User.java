@@ -1,4 +1,4 @@
-package alkemy.challenge.Challenge.Alkemy.dto;
+package alkemy.challenge.Challenge.Alkemy.model;
 
 import alkemy.challenge.Challenge.Alkemy.model.Roles;
 import lombok.Data;
