@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import alkemy.challenge.Challenge.Alkemy.dto.User;
+import alkemy.challenge.Challenge.Alkemy.model.User;
 import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
 import java.util.Optional;
 

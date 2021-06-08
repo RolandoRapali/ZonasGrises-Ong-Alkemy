@@ -1,6 +1,6 @@
 package alkemy.challenge.Challenge.Alkemy.controller;
 
-import alkemy.challenge.Challenge.Alkemy.dto.User;
+import alkemy.challenge.Challenge.Alkemy.model.User;
 import alkemy.challenge.Challenge.Alkemy.exception.UserAlreadyExistException;
 import alkemy.challenge.Challenge.Alkemy.service.ErrorHandlingService;
 import alkemy.challenge.Challenge.Alkemy.service.UserService;
