@@ -1,14 +1,14 @@
 package alkemy.challenge.Challenge.Alkemy.service;
 
-import alkemy.challenge.Challenge.Alkemy.dto.User;
 import alkemy.challenge.Challenge.Alkemy.exception.UserAlreadyExistException;
-import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import alkemy.challenge.Challenge.Alkemy.dto.User;
+import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
 
 @Service
 @AllArgsConstructor
@@ -38,4 +38,5 @@ public class UserService implements UserDetailsService {
         user.setPassword(encodedPassword);
         userRepository.save(user);
     }
+
 }
