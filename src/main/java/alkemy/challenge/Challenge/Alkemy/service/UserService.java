@@ -1,5 +1,6 @@
 package alkemy.challenge.Challenge.Alkemy.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import alkemy.challenge.Challenge.Alkemy.exception.UserAlreadyExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import alkemy.challenge.Challenge.Alkemy.dto.User;
 import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -16,9 +18,24 @@ public class UserService implements UserDetailsService {
 
     private static final String USER_NOT_FOUND = "User with email %s don't found";
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private final UserRepository userRepository;
+
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    public void softDelete(User user) {
+        user.setDeleted(true);
+        userRepository.save(user);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -28,7 +45,8 @@ public class UserService implements UserDetailsService {
 
     public void saveUser(User user) throws UserAlreadyExistException {
 
-        boolean userExist = userRepository.findByEmail(user.getEmail()).isPresent();
+//        boolean userExist = userRepository.findByEmail(user.getEmail()).isPresent();
+        boolean userExist = false;
 
         if (userExist) {
             throw new UserAlreadyExistException("The user already exists in the database");

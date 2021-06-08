@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +34,7 @@ public class RegisterController {
 
         try {
             userService.saveUser(user);
-        } catch (UserAlreadyExistException e) {
+        } catch (Exception e) {
             response.put("message", "ERROR DB");
             response.put("error", e.getMessage().concat(":"));
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);

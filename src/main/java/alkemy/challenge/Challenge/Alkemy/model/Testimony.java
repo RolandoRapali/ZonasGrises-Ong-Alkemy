@@ -3,13 +3,14 @@ package alkemy.challenge.Challenge.Alkemy.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.*;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import org.hibernate.annotations.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -39,13 +40,11 @@ public class Testimony implements Serializable {
 
     //create the timestamp and save in db
     @CreationTimestamp
-    @Temporal(TemporalType.DATE)
     @Column(name = "create_date")
-    private Date createDate;
+    private LocalDateTime createDate;
     //modify the timestamp and update
     @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "update_date")
-    private Date updatedDate;
+    private LocalDateTime updatedDate;
 
 }

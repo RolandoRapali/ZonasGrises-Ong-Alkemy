@@ -14,37 +14,37 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
-    
+
     @Autowired
     SendGrid sendGrid;
-    
+
     public Response sendEmail(EmailRequest emailrequest) {
-        
-        Mail mail = new Mail(new Email("email_usuario_grid@mail.com"), 
-                emailrequest.getSubject(), 
-                new Email(emailrequest.getTo()), 
+
+        Mail mail = new Mail(new Email("email_usuario_grid@mail.com"),
+                emailrequest.getSubject(),
+                new Email(emailrequest.getTo()),
                 new Content("text/plain", emailrequest.getBody()));
         mail.setReplyTo(new Email("a_que_mail_responder@mail.com"));
         Request request = new Request();
-        
+
         Response response = null;
-        
+
         try {
-            
+
             request.setMethod(Method.POST);
-            
+
             request.setEndpoint("mail/send");
-            
+
             request.setBody(mail.build());
-            
+
             response = this.sendGrid.api(request);
-            
+
         } catch (IOException ex) {
-            
+
             System.out.println(ex.getMessage());
         }
-        
+
         return response;
     }
-    
+
 }

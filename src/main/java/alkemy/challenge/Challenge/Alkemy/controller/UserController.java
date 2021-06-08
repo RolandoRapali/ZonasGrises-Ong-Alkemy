@@ -3,42 +3,33 @@ package alkemy.challenge.Challenge.Alkemy.controller;
 import alkemy.challenge.Challenge.Alkemy.dto.User;
 import alkemy.challenge.Challenge.Alkemy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping("/auth")
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    /*Endpoint para guardar Usuario en la base de datos*/
-    @PostMapping("/login")
-    public String saveUser(@Validated @ModelAttribute User u, BindingResult result, Model model) {
-        /*Verifico que no haya errores con los datos del usuario*/
-        if (result.hasErrors()) {
-            System.out.println("ok:false");
-            System.out.println("Problems with date");
-            return "redirect:/auth/login";
-        } else {
-//            model.addAttribute("user", userService.saveUser(u));
-            System.out.println("New registered user.");
-            System.out.println("User:" + u.toString());
-        }
-        return "redirect:/auth/login/";
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    /*Loguear Usuario*/
-    @GetMapping("/login/")
-    public String login(Model model) {
-        model.addAttribute("login", new User());
-        return "loginView";
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteUserById(@PathVariable Long id) {
+        Optional<User> user = userService.findById(id);
+        if (user.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        userService.softDelete(user.get());
+        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 }
