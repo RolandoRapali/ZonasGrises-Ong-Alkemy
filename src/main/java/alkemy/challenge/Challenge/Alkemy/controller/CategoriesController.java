@@ -3,15 +3,16 @@ package alkemy.challenge.Challenge.Alkemy.controller;
 import alkemy.challenge.Challenge.Alkemy.model.Categories;
 import alkemy.challenge.Challenge.Alkemy.service.CategoriesService;
 import alkemy.challenge.Challenge.Alkemy.util.Message;
+import java.util.List;
 import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import alkemy.challenge.Challenge.Alkemy.service.CategoriesService;
 
 @RestController
 public class CategoriesController {
@@ -33,5 +34,11 @@ public class CategoriesController {
             return new ResponseEntity(new Message("categoria creada."),
                     HttpStatus.OK);
         }
+    }
+
+    /**Lista de categorias por nombre */
+    @GetMapping("/listCategories")
+    public List<String> listCategories(){
+        return categoriesService.listCategoriesByName();
     }
 }
