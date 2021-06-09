@@ -23,8 +23,8 @@ public class Activities {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    @Column(name = "name")
-    private String name;
+    @Column(name = "name_id")
+    private String name_id;
 
     @NotNull
     @Column(name = "content")
