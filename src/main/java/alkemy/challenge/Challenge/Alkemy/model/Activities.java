@@ -21,10 +21,12 @@ import java.sql.Date;
 public class Activities {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
-    @Column(name = "name_id")
-    private String name_id;
+    @SequenceGenerator(name = "publication_sequence", sequenceName = "publication_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "publication_sequence")
+    private Long id;
+
+    @Column(name = "name")
+    private String name;
 
     @NotNull
     @Column(name = "content")
