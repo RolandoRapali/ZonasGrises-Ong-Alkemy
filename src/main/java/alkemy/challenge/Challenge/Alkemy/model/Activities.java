@@ -23,9 +23,14 @@ public class Activities {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
+    @Column(name = "name")
+    private String name;
+
+    @NotNull
     @Column(name = "content")
     private String content;
 
+    @NotNull
     @Column(name = "image")
     private String image;
 
