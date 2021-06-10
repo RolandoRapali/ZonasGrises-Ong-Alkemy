@@ -1,0 +1,5 @@
+amazonProperties:
+  endpointUrl: https://s3.us-east-2.amazonaws.com
+  accessKey: AKIATDLE6SU6RHAWEOUF
+  secretKey: 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
+  bucketName: ongstorage
