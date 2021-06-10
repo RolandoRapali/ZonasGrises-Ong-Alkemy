@@ -15,4 +15,7 @@ public class NewsService {
         return newsRepository.findById(id);
     }
 
+    public News create(News news) {
+        return newsRepository.save(news);
+    }
 }
