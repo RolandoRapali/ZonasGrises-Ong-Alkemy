@@ -39,13 +39,13 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return null;
-//        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
+        //return null;
+        return (UserDetails) userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
     }
 
     public void saveUser(User user) throws UserAlreadyExistException {
 
-//        boolean userExist = userRepository.findByEmail(user.getEmail()).isPresent();
+        //boolean userExist = userRepository.findByEmail(user.getEmail()).isPresent();
         boolean userExist = false;
 
         if (userExist) {
