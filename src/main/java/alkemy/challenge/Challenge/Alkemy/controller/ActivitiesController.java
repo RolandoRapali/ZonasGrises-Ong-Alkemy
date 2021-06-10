@@ -4,10 +4,13 @@ import alkemy.challenge.Challenge.Alkemy.exception.ActivitiesNotFoundException;
 import alkemy.challenge.Challenge.Alkemy.model.Activities;
 import alkemy.challenge.Challenge.Alkemy.repository.ActivitiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import java.util.Optional;
+import javax.validation.Valid;
 
 public class ActivitiesController {
 
@@ -23,8 +26,27 @@ public class ActivitiesController {
         return a;
 
     }
-}
+
     @RequestMapping(path = "/mno/objectKey/{id}/{name}", method = RequestMethod.GET)
     public Book getBook(@PathVariable int id, @PathVariable String name) {
         // code here
     }
+
+    /*Endpoint para actualizar actividades */
+    @PutMapping("/activities/{id}")
+    public ResponseEntity<Activities> updateActivities(@PathVariable(value = "id") Long activitiesId,
+                                                        @Valid @RequestBody Activities activitiesDetails){
+        if(activitiesRepository.existsById(activitiesId)){
+            Activities activities = activitiesRepository.getById(activitiesId);
+            activities.setName(activitiesDetails.getName());
+            activities.setContent(activitiesDetails.getContent());
+            activities.setImage(activitiesDetails.getImage());
+            activities.setDeleted(activitiesDetails.getDeleted());
+            activities.setActivitiesDate(activitiesDetails.getActivitiesDate());
+            final Activities updateActivities = activitiesRepository.save(activities);
+            return ResponseEntity.ok(updateActivities);
+        }else{
+            return (ResponseEntity<Activities>) ResponseEntity.notFound();
+        }
+    }
+}
