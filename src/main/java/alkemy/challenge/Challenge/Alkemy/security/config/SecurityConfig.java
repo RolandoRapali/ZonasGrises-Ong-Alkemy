@@ -43,10 +43,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/authenticate","/auth/**","/deny").permitAll().
-                anyRequest().authenticated().and().
-                exceptionHandling().and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .authorizeRequests()
+                .antMatchers("/authenticate", "/auth/**", "/deny").permitAll()
+                //ADMIN
+                .antMatchers("").hasRole("ROLE_ADMIN")
+                //USER Y ADMIN
+                .antMatchers().hasAnyRole("ROLE_USER", "ROLE_ADMIN")
+                //authenticated users
+                .anyRequest().authenticated()
+                //exceptions
+                .and().exceptionHandling()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler()); //Handling error 403.
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
