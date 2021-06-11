@@ -16,7 +16,7 @@ import javax.validation.Valid;
 public class ActivitiesController {
 
     @Autowired
-    private ActivitiesRepository activitiesRepository;
+    private ActivitiesService activitiesService;
 
     @GetMapping(path = "/activities/{name_id}")
     public Optional<Activities> getActivitiesByID(@PathVariable Long id) {
@@ -31,17 +31,6 @@ public class ActivitiesController {
     @PutMapping("/activities/{id}")
     public ResponseEntity<Activities> updateActivities(@PathVariable(value = "id") Long activitiesId,
             @Valid @RequestBody Activities activitiesDetails) {
-        if (activitiesRepository.existsById(activitiesId)) {
-            Activities activities = activitiesRepository.getById(activitiesId);
-            activities.setName(activitiesDetails.getName());
-            activities.setContent(activitiesDetails.getContent());
-            activities.setImage(activitiesDetails.getImage());
-            activities.setDeleted(activitiesDetails.isDeleted());
-            activities.setActivitiesDate(activitiesDetails.getActivitiesDate());
-            final Activities updateActivities = activitiesRepository.save(activities);
-            return ResponseEntity.ok(updateActivities);
-        } else {
-            return (ResponseEntity<Activities>) ResponseEntity.notFound();
-        }
+        return activitiesService.updateActivities(activitiesId, activitiesDetails);
     }
 }
