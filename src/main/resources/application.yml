@@ -3,3 +3,4 @@ amazonProperties:
   accessKey: AKIATDLE6SU6RHAWEOUF
   secretKey: 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
   bucketName: ongstorage
+  region.static: us-east-2

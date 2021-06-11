@@ -32,12 +32,16 @@ public class AmazonClientService {
     @Value("${amazonProperties.secretKey}")
     private String secretKey;
 
+    @Value("${amazonProperties.region.static}")
+    private String region;
+
     /*Establecemos las credenciales de amazon en el cliente de amazon.*/
     @Bean
     private AmazonS3 s3Client(){
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
         return AmazonS3ClientBuilder.standard()
                     .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                    .withRegion(region)
                     .build();
     }
 
