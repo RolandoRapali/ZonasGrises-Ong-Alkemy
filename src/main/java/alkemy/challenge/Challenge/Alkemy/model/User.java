@@ -54,6 +54,15 @@ public class User implements Serializable, UserDetails {
     @Column(name = "create_at")
     private Date create_at_register;
 
+    public User(@NonNull String firstName, @NonNull String lastName, @NonNull String email, @NonNull String password, Set<Roles> roles, Date create_at_register) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.create_at_register = create_at_register;
+    }
+
     @Override
     public String toString() {
         return "User{"
