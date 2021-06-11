@@ -3,12 +3,12 @@ package alkemy.challenge.Challenge.Alkemy.controller;
 import alkemy.challenge.Challenge.Alkemy.exception.ActivitiesNotFoundException;
 import alkemy.challenge.Challenge.Alkemy.model.Activities;
 import alkemy.challenge.Challenge.Alkemy.repository.ActivitiesRepository;
+import alkemy.challenge.Challenge.Alkemy.service.ActivitiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.awt.print.Book;
 import java.util.Optional;
 import javax.validation.Valid;
 
@@ -19,7 +19,7 @@ public class ActivitiesController {
 
     @GetMapping(path = "/activities/{name_id}")
     public Optional<Activities> getActivitiesByID(@PathVariable Long id) {
-        Optional<Activities> a = ActivitiesService.getActivitiesByID(id);
+        Optional<Activities> a = Optional.of(ActivitiesService.getActivitiesByID(id));
         if (null == a) {
             throw new ActivitiesNotFoundException("Activities with ID[" + id + "] not found");
         }
@@ -31,6 +31,7 @@ public class ActivitiesController {
     public Book getBook(@PathVariable int id, @PathVariable String name) {
         // code here
     }
+
 
     /*Endpoint para actualizar actividades */
     @PutMapping("/activities/{id}")
