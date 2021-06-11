@@ -1,6 +1,5 @@
 package alkemy.challenge.Challenge.Alkemy.controller;
 
-import alkemy.challenge.Challenge.Alkemy.model.Testimony;
 import alkemy.challenge.Challenge.Alkemy.model.User;
 import alkemy.challenge.Challenge.Alkemy.repository.TestimonialsRepository;
 import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
@@ -45,7 +44,7 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @PatchMapping("/users/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable("id") Long id) {
 
         if (!userRepository.existsById(id)) {
