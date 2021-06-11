@@ -15,7 +15,13 @@ public class NewsService {
         return newsRepository.findById(id);
     }
 
-    public News create(News news) {
-        return newsRepository.save(news);
+    public News update(News newsAux, News news) {
+        newsAux.setName(news.getName());
+        newsAux.setImage(news.getImage());
+        newsAux.setContent(news.getContent());
+        newsAux.setCategoryId(news.getCategoryId());
+        newsAux.setDeleted(news.isDeleted());
+        newsRepository.save(newsAux);
+        return newsAux;
     }
 }
