@@ -30,8 +30,7 @@ public class NewsController {
     public ResponseEntity<News> updateNews(@PathVariable Long id, @RequestBody @Valid News news) {
         News newsAux = newsService.bringById(id);
         if (!(newsAux == null)) {
-            newsService.update(newsAux, news);
-            return ResponseEntity.ok(newsAux);
+            return ResponseEntity.ok(newsService.update(newsAux, news));
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
