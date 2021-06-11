@@ -8,7 +8,11 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -35,11 +39,14 @@ public class Activities {
     @Column(name = "image")
     private String image;
 
-    @Column
+    @NotNull
+    @Column(name = "isDeleted")
     private boolean deleted = Boolean.FALSE;
 
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
     @Column(name = "activities_date")
     private Date activitiesDate;
+
+    
 }

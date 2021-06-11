@@ -24,12 +24,6 @@ public class ActivitiesController {
             throw new ActivitiesNotFoundException("Activities with ID[" + id + "] not found");
         }
         return a;
-
-    }
-
-    @RequestMapping(path = "/mno/objectKey/{id}/{name}", method = RequestMethod.GET)
-    public Book getBook(@PathVariable int id, @PathVariable String name) {
-        // code here
     }
 
     /*Endpoint para actualizar actividades */
@@ -41,7 +35,7 @@ public class ActivitiesController {
             activities.setName(activitiesDetails.getName());
             activities.setContent(activitiesDetails.getContent());
             activities.setImage(activitiesDetails.getImage());
-            activities.setDeleted(activitiesDetails.getDeleted());
+            activities.setDeleted(activitiesDetails.isDeleted());
             activities.setActivitiesDate(activitiesDetails.getActivitiesDate());
             final Activities updateActivities = activitiesRepository.save(activities);
             return ResponseEntity.ok(updateActivities);
