@@ -1,21 +1,25 @@
 package alkemy.challenge.Challenge.Alkemy.model;
 
-import alkemy.challenge.Challenge.Alkemy.model.Roles;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,11 +44,11 @@ public class User implements Serializable {
     @Column(nullable = true)
     private String photo;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Roles> roles;
+    @ManyToOne
+    @JoinColumn(name = "user_rol")
+    private Roles rol;
 
-    private Boolean deleted;
+    private Boolean deleted = Boolean.FALSE;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "create_at")
@@ -58,7 +62,40 @@ public class User implements Serializable {
                 + ", email='" + email + '\''
                 + ", password='" + password + '\''
                 + ", photo='" + photo + '\''
-                + ", roles=" + roles
+                + ", rol=" + rol
                 + '}';
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> roles = new ArrayList<>();
+        roles.add(new SimpleGrantedAuthority(rol.getName()));
+        return roles;
+    }
+
+    //debería funcionar usando el email en su lugar...
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return !deleted;
     }
 }
