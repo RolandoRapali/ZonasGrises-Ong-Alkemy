@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import alkemy.challenge.Challenge.Alkemy.service.CategoriesService;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 public class CategoriesController {
@@ -37,13 +37,28 @@ public class CategoriesController {
         }
     }
     
-    @DeleteMapping("/categories/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id")Long id){
+    @PutMapping("/categories/{id}")
+    public ResponseEntity<?> update(@PathVariable("id")Long id, 
+            @RequestBody Categories categories){
+        
         if(!categoriesService.existsById(id))
             return new ResponseEntity(new Message("no existe el id"), 
                     HttpStatus.NOT_FOUND);
-        categoriesService.delete(id);
-        return new ResponseEntity(new Message("Categoria eliminada"), 
+        
+        if(StringUtils.isBlank(categories.getName()))
+            return new ResponseEntity(new Message("campo nombre no puede estar vacio"), 
+                    HttpStatus.BAD_REQUEST);
+        
+        if(!StringUtils.isAlpha(categories.getName())) 
+            return new ResponseEntity(new Message("Debe contener solo letras"), 
+                    HttpStatus.BAD_REQUEST);
+
+        Categories categorieUpdated = categoriesService.getOne(id).get();
+        categorieUpdated .setName(categories.getName());
+        categorieUpdated .setDescription(categories.getDescription());
+        categorieUpdated .setImages(categories.getImages());
+        categoriesService.save(categorieUpdated);
+        return new ResponseEntity(new Message("Categoria actualizada"), 
                 HttpStatus.OK);
     }
 }

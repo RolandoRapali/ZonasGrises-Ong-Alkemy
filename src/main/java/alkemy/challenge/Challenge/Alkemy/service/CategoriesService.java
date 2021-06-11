@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import alkemy.challenge.Challenge.Alkemy.model.Categories;
 import alkemy.challenge.Challenge.Alkemy.repository.CategoriesRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,11 +33,15 @@ public class CategoriesService {
         }
     }
     
-    public void delete(Long id){
-        categoriesRepository.deleteById(id);
-    }
-    
     public boolean existsById(Long id){
         return categoriesRepository.existsById(id);
+    }
+    
+    public Optional<Categories> getOne(Long id){
+        return categoriesRepository.findById(id);
+    }
+    
+    public void save(Categories categories){
+        categoriesRepository.save(categories);
     }
 }
