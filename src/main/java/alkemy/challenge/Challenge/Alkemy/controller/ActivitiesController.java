@@ -3,6 +3,7 @@ package alkemy.challenge.Challenge.Alkemy.controller;
 import alkemy.challenge.Challenge.Alkemy.exception.ActivitiesNotFoundException;
 import alkemy.challenge.Challenge.Alkemy.model.Activities;
 import alkemy.challenge.Challenge.Alkemy.repository.ActivitiesRepository;
+import alkemy.challenge.Challenge.Alkemy.service.ActivitiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ import javax.validation.Valid;
 public class ActivitiesController {
 
     @Autowired
-    private ActivitiesRepository activitiesRepository;
+    private ActivitiesRepository activitiesRepository;    
 
     @GetMapping(path = "/activities/{name_id}")
     public Optional<Activities> getActivitiesByID(@PathVariable Long id) {
