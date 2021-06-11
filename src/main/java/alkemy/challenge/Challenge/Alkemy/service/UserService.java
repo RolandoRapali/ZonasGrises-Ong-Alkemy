@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import alkemy.challenge.Challenge.Alkemy.model.User;
 import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -43,7 +44,7 @@ public class UserService implements UserDetailsService {
         return (UserDetails) userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
     }
 
-    public void saveUser(User user) throws UserAlreadyExistException {
+    public String saveUser(User user) throws UserAlreadyExistException {
 
         //boolean userExist = userRepository.findByEmail(user.getEmail()).isPresent();
         boolean userExist = false;
@@ -55,6 +56,10 @@ public class UserService implements UserDetailsService {
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         userRepository.save(user);
+
+        String token = UUID.randomUUID().toString(); //Se crea un token generado aleatoriamente y se retorna el mismo.
+
+        return token;
     }
 
 }
