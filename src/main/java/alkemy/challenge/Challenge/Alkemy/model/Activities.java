@@ -48,5 +48,4 @@ public class Activities {
     @Column(name = "activities_date")
     private Date activitiesDate;
 
-    
 }

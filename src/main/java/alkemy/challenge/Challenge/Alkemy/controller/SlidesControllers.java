@@ -9,5 +9,4 @@ public class SlidesControllers {
 
     @Autowired
     private SlidesService slidesService;
-
 }

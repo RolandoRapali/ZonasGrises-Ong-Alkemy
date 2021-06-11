@@ -41,9 +41,5 @@ public class OrganizationController {
             return new ResponseEntity(new Message("la organizacion ha sido modificada con exito."), HttpStatus.OK);
 
         }
-
-
     }
-
-
 }

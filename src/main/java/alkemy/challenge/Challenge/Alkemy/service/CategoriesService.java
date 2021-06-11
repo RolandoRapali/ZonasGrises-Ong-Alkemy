@@ -32,16 +32,16 @@ public class CategoriesService {
             return false;
         }
     }
-    
-    public boolean existsById(Long id){
+
+    public boolean existsById(Long id) {
         return categoriesRepository.existsById(id);
     }
-    
-    public Optional<Categories> getOne(Long id){
+
+    public Optional<Categories> getOne(Long id) {
         return categoriesRepository.findById(id);
     }
-    
-    public void save(Categories categories){
+
+    public void save(Categories categories) {
         categoriesRepository.save(categories);
     }
 }

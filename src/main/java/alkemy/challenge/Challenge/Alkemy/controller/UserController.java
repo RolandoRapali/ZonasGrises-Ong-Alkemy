@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -45,17 +43,20 @@ public class UserController {
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
-    /**Guardar usuario en la base de datos*/
+    /**
+     * Guardar usuario en la base de datos
+     */
     @PostMapping("/")
-    public void saveUser(User u) throws UserAlreadyExistException{
+    public void saveUser(User u) throws UserAlreadyExistException {
         userService.saveUser(u);
     }
-    
-    /**Loguear un usuario nuevo*/
+
+    /**
+     * Loguear un usuario nuevo
+     */
     @GetMapping("/")
-    public User loginUser(){
+    public User loginUser() {
         User u = new User();
         return u;
     }
 }
-

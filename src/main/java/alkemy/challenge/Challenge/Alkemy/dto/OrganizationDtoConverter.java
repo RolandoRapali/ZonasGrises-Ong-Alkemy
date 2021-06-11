@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OrganizationDtoConverter {
+
     public OrganizationDto convertEntityToGetOrganizationDto(Organization orgDto) {
         return OrganizationDto.builder()
                 .id(orgDto.getId())

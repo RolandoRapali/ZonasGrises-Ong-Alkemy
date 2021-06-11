@@ -16,7 +16,7 @@ import javax.validation.Valid;
 public class ActivitiesController {
 
     @Autowired
-    private ActivitiesRepository activitiesRepository;    
+    private ActivitiesRepository activitiesRepository;
 
     @GetMapping(path = "/activities/{name_id}")
     public Optional<Activities> getActivitiesByID(@PathVariable Long id) {

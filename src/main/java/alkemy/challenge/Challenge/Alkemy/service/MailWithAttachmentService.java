@@ -2,8 +2,6 @@ package alkemy.challenge.Challenge.Alkemy.service;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
-import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 import javax.mail.BodyPart;
@@ -28,7 +26,6 @@ public class MailWithAttachmentService {
     private String host = "";
     private String port = "";
 
-
     public Session getSession() {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -52,7 +49,6 @@ public class MailWithAttachmentService {
 
         BodyPart messageBodyPart = new MimeBodyPart();
         messageBodyPart.setText("This a welcome message");
-
 
         MimeBodyPart mimeBodyPart = new MimeBodyPart();
         mimeBodyPart.setContent(messageBodyPart, "src/main/resources/Templates/welcomeMail.html");

@@ -16,7 +16,6 @@ public class OrganizationService {
         return organizationRepository.getById((long) id);
     }
 
-
     public void update(OrganizationDto organizationDto) {
         Organization organization = bringOrganization(1);
         organization.setName(organizationDto.getName());

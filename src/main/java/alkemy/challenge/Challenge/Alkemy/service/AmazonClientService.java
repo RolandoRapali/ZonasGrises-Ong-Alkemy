@@ -18,17 +18,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class AmazonClientService {
+
     private AmazonS3 s3client;
 
     @Value("${amazonProperties.endpointUrl}")
     private String endpointUrl;
-    
+
     @Value("${amazonProperties.bucketName}")
-    private String bucketName;    
-    
+    private String bucketName;
+
     @Value("${amazonProperties.accessKey}")
-    private String accessKey;    
-    
+    private String accessKey;
+
     @Value("${amazonProperties.secretKey}")
     private String secretKey;
 
@@ -37,12 +38,12 @@ public class AmazonClientService {
 
     /*Establecemos las credenciales de amazon en el cliente de amazon.*/
     @Bean
-    private AmazonS3 s3Client(){
+    private AmazonS3 s3Client() {
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
         return AmazonS3ClientBuilder.standard()
-                    .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                    .withRegion(region)
-                    .build();
+                .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                .withRegion(region)
+                .build();
     }
 
     /*Metodo de carga de bucket S3 */
@@ -76,7 +77,7 @@ public class AmazonClientService {
             uploadFileTos3bucket(fileName, file);
             file.delete();
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         return fileUrl;
     }

@@ -1,9 +1,12 @@
 package alkemy.challenge.Challenge.Alkemy.model;
 
-import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "roles")

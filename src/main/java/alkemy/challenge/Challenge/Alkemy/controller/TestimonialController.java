@@ -15,7 +15,7 @@ public class TestimonialController {
     // The endpoint of type PUT to update the resource from testimony
     @PutMapping("/testimonials/{name}")
     public ResponseEntity<?> saveResource(@RequestBody Testimony testimony,
-                                          @PathVariable("name") String name) {
+            @PathVariable("name") String name) {
         //calls the method save from the repository
         if (testimony.getName() != null) {
             testimonialsRepository.save(testimony);

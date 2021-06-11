@@ -11,13 +11,14 @@ import alkemy.challenge.Challenge.Alkemy.service.AmazonClientService;
 @RestController
 @RequestMapping("/storage")
 public class AmazonClientController {
-    
+
     private AmazonClientService amazonClient;
 
     @Autowired
     AmazonClientController(AmazonClientService amazonClient) {
         this.amazonClient = amazonClient;
     }
+
     /*Endpoint para subir imagen */
     @PostMapping("/uploadFile")
     public String uploadFile(@RequestPart(value = "file") MultipartFile file) {
