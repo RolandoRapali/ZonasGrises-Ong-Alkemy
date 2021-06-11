@@ -24,6 +24,8 @@ public class NewsService {
         newsAux.setDeleted(news.isDeleted());
         newsRepository.save(newsAux);
         return newsAux;
+    }
+
     @Transactional
     public void delete(long id) {
         boolean exists = newsRepository.existsById(id);

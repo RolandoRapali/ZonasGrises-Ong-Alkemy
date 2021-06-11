@@ -17,12 +17,12 @@ public class ActivitiesController {
     @Autowired
     private ActivitiesRepository activitiesRepository;
 
-    @GetMapping(path="/activities/{name_id}")
+    @GetMapping(path = "/activities/{name_id}")
     public Optional<Activities> getActivitiesByID(@PathVariable Long id) {
-
         Optional<Activities> a = ActivitiesService.getActivitiesByID(id);
-        if (null == a)
+        if (null == a) {
             throw new ActivitiesNotFoundException("Activities with ID[" + id + "] not found");
+        }
         return a;
 
     }
@@ -35,8 +35,8 @@ public class ActivitiesController {
     /*Endpoint para actualizar actividades */
     @PutMapping("/activities/{id}")
     public ResponseEntity<Activities> updateActivities(@PathVariable(value = "id") Long activitiesId,
-                                                        @Valid @RequestBody Activities activitiesDetails){
-        if(activitiesRepository.existsById(activitiesId)){
+            @Valid @RequestBody Activities activitiesDetails) {
+        if (activitiesRepository.existsById(activitiesId)) {
             Activities activities = activitiesRepository.getById(activitiesId);
             activities.setName(activitiesDetails.getName());
             activities.setContent(activitiesDetails.getContent());
@@ -45,7 +45,7 @@ public class ActivitiesController {
             activities.setActivitiesDate(activitiesDetails.getActivitiesDate());
             final Activities updateActivities = activitiesRepository.save(activities);
             return ResponseEntity.ok(updateActivities);
-        }else{
+        } else {
             return (ResponseEntity<Activities>) ResponseEntity.notFound();
         }
     }

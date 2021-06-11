@@ -7,13 +7,13 @@ import lombok.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode
@@ -54,12 +54,12 @@ public class User implements Serializable, UserDetails {
     @Column(name = "create_at")
     private Date create_at_register;
 
-    public User(@NonNull String firstName, @NonNull String lastName, @NonNull String email, @NonNull String password, Set<Roles> roles, Date create_at_register) {
+    public User(@NonNull String firstName, @NonNull String lastName, @NonNull String email, @NonNull String password, Roles rol, Date create_at_register) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.roles = roles;
+        this.rol = rol;
         this.create_at_register = create_at_register;
     }
 
