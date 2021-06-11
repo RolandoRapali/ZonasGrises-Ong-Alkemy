@@ -1,38 +1,32 @@
 package alkemy.challenge.Challenge.Alkemy.controller;
 
-import alkemy.challenge.Challenge.Alkemy.exception.ActivitiesNotFoundException;
 import alkemy.challenge.Challenge.Alkemy.model.Activities;
 import alkemy.challenge.Challenge.Alkemy.repository.ActivitiesRepository;
+import alkemy.challenge.Challenge.Alkemy.service.ActivitiesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 
+@RestController
 public class ActivitiesController {
 
     @Autowired
-    private ActivitiesRepository activitiesRepository;
+    private ActivitiesService activitiesService;
 
-    @RequestMapping(path = "/activities/{name}/{content}", method = RequestMethod.GET)
-    public Optional<Activities> validateActivities(@PathVariable String name, @PathVariable String content){
+    @PreAuthorize("hasRole(ROLE_ADMIN)")
+    @PostMapping("/activities")
+    public ResponseEntity<Activities> createActivities(@RequestBody @Valid Activities activities, @BindingResult result) {
 
-        Optional<Activities> a = ActivitiesService.getPublicationByname(name);
-        if (null == a)
-            throw new ActivitiesNotFoundException("Activities with name[" + name + "] not found");
-
-        Optional<Activities> a = ActivitiesService.getPublicationByconten(content);
-        if (null == a)
-            throw new ActivitiesNotFoundException("Activities with Content[" + content + "] not found");
-
-
-        return a;
-
+        if (resul.hasErrors()) {
+            return (ResponseEntity<Activities>) ResponseEntity.notFound();
+        }
+        activitiesService.save(activities);
+        return ResponseEntity.ok(activities);
     }
-
-
-
-
 }
+
+
+
+
