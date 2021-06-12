@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-public class CategoriesController {
+@RequestMapping("/categories")
+public class CategoryController {
 
     @Autowired
     private CategoriesService categoriesService;
 
-    @PostMapping("/categories")
+    @PostMapping()
     public ResponseEntity<?> addCategories(@RequestBody @Valid Category category) {
         if (StringUtils.isBlank(category.getName())) {
             return new ResponseEntity(new Message("campo nombre no puede estar vacio."),
@@ -33,7 +34,7 @@ public class CategoriesController {
         }
     }
 
-    @PutMapping("/categories/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Long id,
                                     @RequestBody Category category) {
 

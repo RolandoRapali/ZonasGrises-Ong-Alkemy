@@ -23,7 +23,7 @@ public class NewsController {
         return news;
     }
 
-    @DeleteMapping("/news/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") long id) {
         newsService.delete(id);
         return "redirect:/news";

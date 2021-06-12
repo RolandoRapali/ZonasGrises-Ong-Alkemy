@@ -7,15 +7,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class TestimonialController {
+@RequestMapping("/testimonials")
+public class TestimonyController {
 
     @Autowired
     private TestimonialsRepository testimonialsRepository;
 
     // The endpoint of type PUT to update the resource from testimony
-    @PutMapping("/testimonials/{name}")
+    @PutMapping("/{name}")
     public ResponseEntity<?> saveResource(@RequestBody Testimony testimony,
-            @PathVariable("name") String name) {
+                                          @PathVariable("name") String name) {
         //calls the method save from the repository
         if (testimony.getName() != null) {
             testimonialsRepository.save(testimony);
