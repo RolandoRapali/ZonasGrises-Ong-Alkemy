@@ -1,28 +1,30 @@
 package alkemy.challenge.Challenge.Alkemy.model;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Entity
-@Table(name = "roles")
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+
 @Data
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Roles implements Serializable {
+@Entity
+@Table(name = "roles")
+public class Role implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "name_id")
+    @Column(name = "id_roles")
     private Long id;
-    private String name;//"ROLE_ADMIN", "ROLE_USER"
-    private String description;
 
-    private static final long serialVersionUID = 1L;
+    @NotNull
+    private String name;//"ROLE_ADMIN", "ROLE_USER"
+
+    @NotNull
+    private String description;
 }

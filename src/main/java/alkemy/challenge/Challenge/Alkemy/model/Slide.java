@@ -5,49 +5,38 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "organizations")
-public class Organization implements Serializable {
+@Table(name = "slides")
+public class Slide implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_organizations")
+    @Column(name = "id_slides")
     private Long id;
 
-    @NotNull
-    private String name;
+    private String imageUrl;
 
-    @NotNull
-    private String image;
+    private String text;
 
-    private String address;
+    //private String order;
+    private String instruction;
 
-    private Integer phone;
-
-    @NotNull
-    private String email;
-
-    @NotNull
-    private String welcomeText;
-
-    private String aboutUsText;
-
-    private boolean isDeleted = false;
+    //private String organizationId;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
 }

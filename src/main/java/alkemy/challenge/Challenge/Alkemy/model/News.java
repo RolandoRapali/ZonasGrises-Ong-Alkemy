@@ -4,36 +4,44 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "news")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "news")
 public class News implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "news_id")
+    @Column(name = "id_news")
     private Long id;
+
     @NotNull
     private String name;
+
     @NotNull
     private String image;
+
     @NotNull
-    @Column(columnDefinition = "text")
     private String content;
-    @CreationTimestamp
-    private LocalDate date;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "news_category_id")
-    private Categories categoryId;
-    private boolean isDeleted;
+    private Category categoryId;
 
-    private static final long serialVersionUID = 1L;
+    private boolean isDeleted = false;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }

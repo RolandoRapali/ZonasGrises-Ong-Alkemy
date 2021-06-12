@@ -1,95 +1,73 @@
 package alkemy.challenge.Challenge.Alkemy.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Data
-@EqualsAndHashCode
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "users")
 public class User implements Serializable, UserDetails {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_users")
     private Long id;
 
-    @NonNull
-    @Column(nullable = false)
+    @NotNull
     private String firstName;
 
-    @NonNull
-    @Column(nullable = false)
+    @NotNull
     private String lastName;
 
-    @NonNull
-    @Column(nullable = false, unique = true)
+    @NotNull
+    @Column(unique = true)
     private String email;
 
-    @NonNull
-    @Column(nullable = false)
+    @NotNull
     private String password;
 
-    @Column(nullable = true)
     private String photo;
 
     @ManyToOne
-    @JoinColumn(name = "user_rol")
-    private Roles rol;
+    @JoinColumn(name = "user_role")
+    private Role role;
 
-    private Boolean deleted = Boolean.FALSE;
+    @NotNull
+    private Boolean isDeleted = false;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "create_at")
-    private Date create_at_register;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
-    public User(@NonNull String firstName, @NonNull String lastName, @NonNull String email, @NonNull String password, Roles rol, Date create_at_register) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.rol = rol;
-        this.create_at_register = create_at_register;
-    }
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
-    @Override
-    public String toString() {
-        return "User{"
-                + "firstName='" + firstName + '\''
-                + ", lastName='" + lastName + '\''
-                + ", email='" + email + '\''
-                + ", password='" + password + '\''
-                + ", photo='" + photo + '\''
-                + ", rol=" + rol
-                + '}';
-    }
+    //USER DETAILS
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority(rol.getName()));
+        roles.add(new SimpleGrantedAuthority(role.getName()));
         return roles;
     }
 
-    //debería funcionar usando el email en su lugar...
     @Override
     public String getUsername() {
         return email;
@@ -112,6 +90,6 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return !deleted;
+        return !isDeleted;
     }
 }

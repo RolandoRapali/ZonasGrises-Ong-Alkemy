@@ -5,49 +5,45 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "organizations")
-public class Organization implements Serializable {
+@Table(name = "members")
+public class Member implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_organizations")
+    @Column(name = "id_members")
     private Long id;
 
     @NotNull
     private String name;
 
+    private String facebookUrl;
+
+    private String instagramUrl;
+
+    private String linkedinUrl;
+
     @NotNull
     private String image;
 
-    private String address;
-
-    private Integer phone;
-
-    @NotNull
-    private String email;
-
-    @NotNull
-    private String welcomeText;
-
-    private String aboutUsText;
+    private String description;
 
     private boolean isDeleted = false;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
-
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
 }
