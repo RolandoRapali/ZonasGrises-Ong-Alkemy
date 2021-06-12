@@ -1,10 +1,10 @@
 package alkemy.challenge.Challenge.Alkemy.repository;
 
-import alkemy.challenge.Challenge.Alkemy.model.Slides;
+import alkemy.challenge.Challenge.Alkemy.model.Slide;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SlidesRepository extends JpaRepository<Slides, Long> {
+public interface SlidesRepository extends JpaRepository<Slide, Long> {
 
 }
