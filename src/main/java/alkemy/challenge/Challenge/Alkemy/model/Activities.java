@@ -20,11 +20,18 @@ import javax.validation.constraints.NotNull;
 public class Activities {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "publication_sequence", sequenceName = "publication_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "publication_sequence")
+    private Long id;
+
+    @Column(name = "name")
+    private String name;
+
     @NotNull
     @Column(name = "content")
     private String content;
 
+    @NotNull
     @Column(name = "image")
     private String image;
 
