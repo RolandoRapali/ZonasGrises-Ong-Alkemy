@@ -1,7 +1,7 @@
 package alkemy.challenge.Challenge.Alkemy.controller;
 
 import alkemy.challenge.Challenge.Alkemy.model.Category;
-import alkemy.challenge.Challenge.Alkemy.service.CategoriesService;
+import alkemy.challenge.Challenge.Alkemy.service.CategoryService;
 import alkemy.challenge.Challenge.Alkemy.util.Message;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import javax.validation.Valid;
 public class CategoryController {
 
     @Autowired
-    private CategoriesService categoriesService;
+    private CategoryService categoryService;
 
     @PostMapping()
     public ResponseEntity<?> addCategories(@RequestBody @Valid Category category) {
@@ -28,7 +28,7 @@ public class CategoryController {
             return new ResponseEntity(new Message("Debe contener solo letras."),
                     HttpStatus.BAD_REQUEST);
         } else {
-            categoriesService.createCategories(category);
+            categoryService.createCategories(category);
             return new ResponseEntity(new Message("categoria creada."),
                     HttpStatus.OK);
         }
@@ -38,7 +38,7 @@ public class CategoryController {
     public ResponseEntity<?> update(@PathVariable("id") Long id,
                                     @RequestBody Category category) {
 
-        if (!categoriesService.existsById(id)) {
+        if (!categoryService.existsById(id)) {
             return new ResponseEntity(new Message("no existe el id"),
                     HttpStatus.NOT_FOUND);
         }
@@ -53,11 +53,11 @@ public class CategoryController {
                     HttpStatus.BAD_REQUEST);
         }
 
-        Category categorieUpdated = categoriesService.getOne(id).get();
+        Category categorieUpdated = categoryService.getOne(id).get();
         categorieUpdated.setName(category.getName());
         categorieUpdated.setDescription(category.getDescription());
         categorieUpdated.setImages(category.getImages());
-        categoriesService.save(categorieUpdated);
+        categoryService.save(categorieUpdated);
         return new ResponseEntity(new Message("Categoria actualizada"),
                 HttpStatus.OK);
     }

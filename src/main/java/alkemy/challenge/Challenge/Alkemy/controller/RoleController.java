@@ -1,6 +1,6 @@
 package alkemy.challenge.Challenge.Alkemy.controller;
 
-import alkemy.challenge.Challenge.Alkemy.repository.RolesRepository;
+import alkemy.challenge.Challenge.Alkemy.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoleController {
 
     @Autowired
-    private RolesRepository rolesRepository;
+    private RoleRepository roleRepository;
 
 }

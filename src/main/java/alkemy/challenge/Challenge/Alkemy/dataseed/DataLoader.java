@@ -1,7 +1,7 @@
 package alkemy.challenge.Challenge.Alkemy.dataseed;
 
 import alkemy.challenge.Challenge.Alkemy.model.Activity;
-import alkemy.challenge.Challenge.Alkemy.repository.ActivitiesRepository;
+import alkemy.challenge.Challenge.Alkemy.repository.ActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class DataLoader implements CommandLineRunner {
 
     @Autowired
-    ActivitiesRepository activitiesRepository;
+    ActivityRepository activityRepository;
     
     @Override
     public void run(String... args) throws Exception {
@@ -18,7 +18,7 @@ public class DataLoader implements CommandLineRunner {
     }
     
     private void loadActivitiesData() {
-        if (activitiesRepository.count() == 0) {
+        if (activityRepository.count() == 0) {
             Activity activity1 = new Activity(
                     "NombreActividadPRUEBA1",
                     "SoyElContenidoActividad",
@@ -27,10 +27,10 @@ public class DataLoader implements CommandLineRunner {
                     "NombreActividadPRUEBA2",
                     "SoyElContenidoActividad",
                     "SoyUnaImagenActividad");
-            activitiesRepository.save(activity1);
-            activitiesRepository.save(activity2);
+            activityRepository.save(activity1);
+            activityRepository.save(activity2);
         }
-        System.out.println(activitiesRepository.count());
+        System.out.println(activityRepository.count());
     }
     
 }

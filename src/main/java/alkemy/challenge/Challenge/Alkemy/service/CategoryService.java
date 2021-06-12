@@ -1,7 +1,7 @@
 package alkemy.challenge.Challenge.Alkemy.service;
 
 import alkemy.challenge.Challenge.Alkemy.model.Category;
-import alkemy.challenge.Challenge.Alkemy.repository.CategoriesRepository;
+import alkemy.challenge.Challenge.Alkemy.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoriesService {
+public class CategoryService {
 
     @Autowired
-    private CategoriesRepository categoriesRepository;
+    private CategoryRepository categoryRepository;
 
     /*Obtener lista de categorias por nombres*/
     public List<String> listCategoriesByName() {
-        List<Category> listCategories = categoriesRepository.findAll();
+        List<Category> listCategories = categoryRepository.findAll();
         List<String> listCategoriesByname = new ArrayList<>();
         for (Category c : listCategories) {
             listCategoriesByname.add(c.getName());
@@ -27,7 +27,7 @@ public class CategoriesService {
 
     public boolean createCategories(Category category) {
         try {
-            categoriesRepository.save(category);
+            categoryRepository.save(category);
             return true;
         } catch (Exception e) {
             return false;
@@ -35,14 +35,14 @@ public class CategoriesService {
     }
 
     public boolean existsById(Long id) {
-        return categoriesRepository.existsById(id);
+        return categoryRepository.existsById(id);
     }
 
     public Optional<Category> getOne(Long id) {
-        return categoriesRepository.findById(id);
+        return categoryRepository.findById(id);
     }
 
     public void save(Category category) {
-        categoriesRepository.save(category);
+        categoryRepository.save(category);
     }
 }

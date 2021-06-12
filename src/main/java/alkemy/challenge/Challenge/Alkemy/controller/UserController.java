@@ -2,18 +2,14 @@ package alkemy.challenge.Challenge.Alkemy.controller;
 
 import alkemy.challenge.Challenge.Alkemy.exception.UserAlreadyExistException;
 import alkemy.challenge.Challenge.Alkemy.model.User;
-import alkemy.challenge.Challenge.Alkemy.repository.TestimonialsRepository;
+import alkemy.challenge.Challenge.Alkemy.repository.TestimonyRepository;
 import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
 import alkemy.challenge.Challenge.Alkemy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.Optional;
 
 @RestController
@@ -26,7 +22,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
-    private TestimonialsRepository testimonialsRepository;
+    private TestimonyRepository testimonyRepository;
 
     @Autowired
     public UserController(UserService userService) {
