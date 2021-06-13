@@ -31,4 +31,8 @@ public class ActivityService {
             return (ResponseEntity<Activity>) ResponseEntity.notFound();
         }
     }
+
+    public void save(Activity activity) {
+        activityRepository.save(activity);
+    }
 }
