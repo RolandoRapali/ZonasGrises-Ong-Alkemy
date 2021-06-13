@@ -10,21 +10,24 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Optional;
 
+
 @RestController
-@RequestMapping("/activities")
-public class ActivityController {
+public class ActivitiesController {
 
     @Autowired
-    private ActivityService activityService;
+    private ActivitiesService activitiesService;
 
-    @GetMapping(path = "/{name_id}")
-    public Optional<Activity> getActivitiesByID(@PathVariable Long id) {
-        Optional<Activity> a = ActivityService.getActivitiesByID(id);
-        if (null == a) {
-            throw new ActivitiesNotFoundException("Activities with ID[" + id + "] not found");
+    @PreAuthorize("hasRole(ROLE_ADMIN)")
+    @PostMapping("/activities")
+    public ResponseEntity<Activities> createActivities(@RequestBody @Valid Activities activities, @BindingResult result) {
+
+        if (resul.hasErrors()) {
+            return (ResponseEntity<Activities>) ResponseEntity.notFound();
         }
-        return a;
+        activitiesService.save(activities);
+        return ResponseEntity.ok(activities);
     }
+}
 
     /*Endpoint para actualizar actividades */
     @PutMapping("/{id}")
