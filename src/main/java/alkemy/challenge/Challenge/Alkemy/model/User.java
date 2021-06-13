@@ -51,7 +51,7 @@ public class User implements Serializable, UserDetails {
     private Role role;
 
     @NotNull
-    private Boolean isDeleted = false;
+    private Boolean deleted = false;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -90,6 +90,6 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return !isDeleted;
+        return !deleted;
     }
 }

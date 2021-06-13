@@ -38,7 +38,7 @@ public class News implements Serializable {
     @JoinColumn(name = "news_category_id")
     private Category categoryId;
 
-    private boolean isDeleted = false;
+    private boolean deleted = false;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

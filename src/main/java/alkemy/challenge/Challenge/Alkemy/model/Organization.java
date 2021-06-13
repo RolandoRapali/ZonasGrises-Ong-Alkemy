@@ -43,7 +43,7 @@ public class Organization implements Serializable {
 
     private String aboutUsText;
 
-    private boolean isDeleted = false;
+    private boolean deleted = false;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

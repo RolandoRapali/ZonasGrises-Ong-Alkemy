@@ -39,7 +39,7 @@ public class Member implements Serializable {
 
     private String description;
 
-    private boolean isDeleted = false;
+    private boolean deleted = false;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

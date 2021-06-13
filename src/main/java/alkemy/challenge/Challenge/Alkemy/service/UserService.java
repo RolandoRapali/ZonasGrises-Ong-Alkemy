@@ -35,7 +35,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void softDelete(User user) {
-        user.setIsDeleted(true);
+        user.setDeleted(true);
         userRepository.save(user);
     }
 

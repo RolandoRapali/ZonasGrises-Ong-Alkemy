@@ -30,7 +30,7 @@ public class Category implements Serializable {
 
     private String images;
 
-    private boolean isDeleted = false;
+    private boolean deleted = false;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

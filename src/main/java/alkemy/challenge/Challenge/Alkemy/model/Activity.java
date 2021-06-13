@@ -34,7 +34,7 @@ public class Activity implements Serializable {
     private String image;
 
     @NotNull
-    private boolean isDeleted = false;
+    private boolean deleted = false;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
