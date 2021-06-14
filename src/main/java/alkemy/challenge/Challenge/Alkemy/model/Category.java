@@ -36,4 +36,10 @@ public class Category implements Serializable {
     private LocalDateTime createdAt;
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    public Category(String name, String description, String images) {
+        this.name = name;
+        this.description = description;
+        this.images = images;
+    }
 }
