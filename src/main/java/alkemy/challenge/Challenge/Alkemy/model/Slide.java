@@ -29,7 +29,7 @@ public class Slide implements Serializable {
     private String text;
 
     //private String order;
-    private String instruction;
+    private String sequence;
 
     //private String organizationId;
 
