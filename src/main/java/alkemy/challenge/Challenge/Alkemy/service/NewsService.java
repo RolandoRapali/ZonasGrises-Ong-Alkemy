@@ -2,9 +2,10 @@ package alkemy.challenge.Challenge.Alkemy.service;
 
 import alkemy.challenge.Challenge.Alkemy.model.News;
 import alkemy.challenge.Challenge.Alkemy.repository.NewsRepository;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 public class NewsService {
@@ -34,5 +35,9 @@ public class NewsService {
         } else {
             throw new IllegalStateException("El id " + id + "que buscas no existe");
         }
+    }
+
+    public News create(News news) {
+        return newsRepository.save(news);
     }
 }

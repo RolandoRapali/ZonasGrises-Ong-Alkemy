@@ -4,10 +4,9 @@ import alkemy.challenge.Challenge.Alkemy.model.News;
 import alkemy.challenge.Challenge.Alkemy.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/news")
@@ -21,6 +20,11 @@ public class NewsController {
     public News bringNews(@PathVariable long id) {
         News news = newsService.bringById(id);
         return news;
+    }
+
+    @PostMapping
+    public News newNews(@RequestBody @Valid News news) {
+        return newsService.create(news);
     }
 
     @DeleteMapping("/{id}")
