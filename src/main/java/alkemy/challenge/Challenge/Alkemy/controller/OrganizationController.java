@@ -31,10 +31,10 @@ public class OrganizationController {
 
     @PostMapping("/public")
     public ResponseEntity<?> modifyOrganization(@RequestBody @Valid OrganizationDto organizationDto) {
-        if (organizationDto.getName().isEmpty()) {
+        if (organizationDto.getName().isEmpty() || organizationDto.getName().isBlank()) {
             return new ResponseEntity(new Message("el campo de nombre no puede estar vacio"), HttpStatus.BAD_REQUEST);
         }
-        if (organizationDto.getImage().isEmpty()) {
+        if (organizationDto.getImage().isEmpty() || organizationDto.getImage().isBlank()) {
             return new ResponseEntity(new Message("el campo de imagen no puede estar vacio"), HttpStatus.BAD_REQUEST);
         } else {
             organizationService.update(organizationDto);

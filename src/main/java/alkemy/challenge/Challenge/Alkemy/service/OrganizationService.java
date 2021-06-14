@@ -19,9 +19,9 @@ public class OrganizationService {
     public void update(OrganizationDto organizationDto) {
         Organization organization = bringOrganization(1);
         organization.setName(organizationDto.getName());
-        organization.setAddress(organizationDto.getAdress());
         organization.setImage(organizationDto.getImage());
-        organization.setPhone(organizationDto.getPhone());
+        if(organizationDto.getAdress() != null)organization.setAddress(organizationDto.getAdress());
+        if(organizationDto.getPhone() != 0)organization.setPhone(organizationDto.getPhone());
         organizationRepository.save(organization);
     }
 }
