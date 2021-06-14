@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService {
     }
 
     public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+        return userRepository.findByIdAndDeletedFalse(id);
     }
 
     public void softDelete(User user) {
