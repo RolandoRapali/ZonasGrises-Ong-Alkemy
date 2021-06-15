@@ -1,5 +1,6 @@
-package alkemy.challenge.Challenge.Alkemy.dto;
+package alkemy.challenge.Challenge.Alkemy.converter;
 
+import alkemy.challenge.Challenge.Alkemy.dto.OrganizationDto;
 import alkemy.challenge.Challenge.Alkemy.model.Organization;
 import org.springframework.stereotype.Component;
 

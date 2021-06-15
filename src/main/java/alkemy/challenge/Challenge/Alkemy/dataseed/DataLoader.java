@@ -1,7 +1,16 @@
 package alkemy.challenge.Challenge.Alkemy.dataseed;
 
-import alkemy.challenge.Challenge.Alkemy.model.*;
-import alkemy.challenge.Challenge.Alkemy.repository.*;
+import alkemy.challenge.Challenge.Alkemy.model.Activity;
+import alkemy.challenge.Challenge.Alkemy.model.Category;
+import alkemy.challenge.Challenge.Alkemy.model.News;
+import alkemy.challenge.Challenge.Alkemy.model.Role;
+import alkemy.challenge.Challenge.Alkemy.model.User;
+import alkemy.challenge.Challenge.Alkemy.repository.ActivityRepository;
+import alkemy.challenge.Challenge.Alkemy.repository.CategoryRepository;
+import alkemy.challenge.Challenge.Alkemy.repository.NewsRepository;
+import alkemy.challenge.Challenge.Alkemy.repository.OrganizationRepository;
+import alkemy.challenge.Challenge.Alkemy.repository.RoleRepository;
+import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -1,7 +1,7 @@
 package alkemy.challenge.Challenge.Alkemy.controller;
 
 import alkemy.challenge.Challenge.Alkemy.dto.OrganizationDto;
-import alkemy.challenge.Challenge.Alkemy.dto.OrganizationDtoConverter;
+import alkemy.challenge.Challenge.Alkemy.converter.OrganizationDtoConverter;
 import alkemy.challenge.Challenge.Alkemy.service.OrganizationService;
 import alkemy.challenge.Challenge.Alkemy.util.Message;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.validation.Valid;
 
 @RestController
@@ -21,7 +20,6 @@ import javax.validation.Valid;
 public class OrganizationController {
 
     private final OrganizationService organizationService;
-
     private final OrganizationDtoConverter organizationDtoConverter;
 
     @GetMapping("/public")

@@ -4,7 +4,6 @@ import alkemy.challenge.Challenge.Alkemy.model.News;
 import alkemy.challenge.Challenge.Alkemy.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 
 @Service

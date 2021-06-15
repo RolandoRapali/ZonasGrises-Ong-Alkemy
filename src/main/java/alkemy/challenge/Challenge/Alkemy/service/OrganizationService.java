@@ -20,8 +20,12 @@ public class OrganizationService {
         Organization organization = bringOrganization(1);
         organization.setName(organizationDto.getName());
         organization.setImage(organizationDto.getImage());
-        if(organizationDto.getAdress() != null)organization.setAddress(organizationDto.getAdress());
-        if(organizationDto.getPhone() != 0)organization.setPhone(organizationDto.getPhone());
+        if (organizationDto.getAdress() != null) {
+            organization.setAddress(organizationDto.getAdress());
+        }
+        if (organizationDto.getPhone() != 0) {
+            organization.setPhone(organizationDto.getPhone());
+        }
         organizationRepository.save(organization);
     }
 }

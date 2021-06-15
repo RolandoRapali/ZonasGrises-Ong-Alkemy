@@ -12,18 +12,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class EmailController {
-    
+
     @Autowired
     private EmailService emailService;
-    
+
     @PostMapping("/sendEmail")
     public ResponseEntity<String> sendEmail(@RequestBody EmailRequest emailrequest) {
         Response response = emailService.sendEmail(emailrequest);
-        if (response.getStatusCode()==200||response.getStatusCode()==202) 
+        if (response.getStatusCode() == 200 || response.getStatusCode() == 202) {
             return new ResponseEntity<>("Mail enviado!", HttpStatus.OK);
+        }
         return new ResponseEntity<>("Fallo el envio!", HttpStatus.NOT_FOUND);
     }
-    
+
 //    Json para probar el método:
 //    
 //    {

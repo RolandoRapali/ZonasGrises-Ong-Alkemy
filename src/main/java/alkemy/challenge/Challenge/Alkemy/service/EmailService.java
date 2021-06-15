@@ -24,27 +24,20 @@ public class EmailService {
                 emailrequest.getSubject(),
                 new Email(emailrequest.getTo()),
                 new Content("text/plain", emailrequest.getBody()));
+
         mail.setReplyTo(new Email("a_que_mail_responder@mail.com"));
         Request request = new Request();
-
         Response response = null;
 
         try {
-
             request.setMethod(Method.POST);
-
             request.setEndpoint("mail/send");
-
             request.setBody(mail.build());
-
             response = this.sendGrid.api(request);
-
         } catch (IOException ex) {
-
             System.out.println(ex.getMessage());
         }
 
         return response;
     }
-
 }
