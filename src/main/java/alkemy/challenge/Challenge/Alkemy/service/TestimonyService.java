@@ -11,7 +11,12 @@ public class TestimonyService {
     @Autowired
     private TestimonyRepository testimonyRepository;
 
+    public Testimony save(Testimony testimony) {
+        return testimonyRepository.save(testimony);
+    }
+
     public void testimonialUpdate(Testimony testimony) {
         testimonyRepository.save(testimony);
     }
+
 }
