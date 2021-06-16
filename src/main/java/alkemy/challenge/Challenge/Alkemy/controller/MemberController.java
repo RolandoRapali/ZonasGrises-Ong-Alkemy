@@ -28,6 +28,7 @@ public class MemberController {
 
         if(id > 0){
             Member member = memberRepository.findById(id).orElse(null);
+            memberRepository.deleteById(id);
             if(member == null){
                 response.put("member_null","Member doesn't exist");
             }
