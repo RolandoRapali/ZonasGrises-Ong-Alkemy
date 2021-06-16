@@ -1,16 +1,7 @@
 package alkemy.challenge.Challenge.Alkemy.dataseed;
 
-import alkemy.challenge.Challenge.Alkemy.model.Activity;
-import alkemy.challenge.Challenge.Alkemy.model.Category;
-import alkemy.challenge.Challenge.Alkemy.model.News;
-import alkemy.challenge.Challenge.Alkemy.model.Role;
-import alkemy.challenge.Challenge.Alkemy.model.User;
-import alkemy.challenge.Challenge.Alkemy.repository.ActivityRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.CategoryRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.NewsRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.OrganizationRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.RoleRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
+import alkemy.challenge.Challenge.Alkemy.model.*;
+import alkemy.challenge.Challenge.Alkemy.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,11 +31,15 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     OrganizationRepository organizationRepository;
 
+    @Autowired
+    SlideRepository slideRepository;
+
     @Override
     public void run(String... args) throws Exception {
         loadActivitiesData();
         loadNewsData();
         loadUsersData();
+        loadSlidesData();
     }
 
     private void loadActivitiesData() {
@@ -79,6 +74,14 @@ public class DataLoader implements CommandLineRunner {
         roleRepository.save(adminRol);
         userRepository.save(new User("firstName", "lastName", "user@alkemy.com", bCryptPasswordEncoder.encode("user"), "photo", userRol));
         userRepository.save(new User("firstName", "lastName", "admin@alkemy.com", bCryptPasswordEncoder.encode("admin"), "photo", adminRol));
+    }
+
+    private void loadSlidesData() {
+        Organization organization = new Organization("name", "image", "address", 123, "email", "welcomeText", "aboutUsText");
+        organizationRepository.save(organization);
+        for (int i = 1; i <= 5; i++) {
+            slideRepository.save(new Slide("imageUrl", "text", i));
+        }
     }
 
 }

@@ -6,14 +6,10 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.NotNull;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
@@ -54,4 +50,14 @@ public class Organization implements Serializable {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    public Organization(@NotNull String name, @NotNull String image, String address, Integer phone, @NotNull String email, @NotNull String welcomeText, String aboutUsText) {
+        this.name = name;
+        this.image = image;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.welcomeText = welcomeText;
+        this.aboutUsText = aboutUsText;
+    }
 }
