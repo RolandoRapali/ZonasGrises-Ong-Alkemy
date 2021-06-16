@@ -3,6 +3,8 @@ package alkemy.challenge.Challenge.Alkemy.service;
 import alkemy.challenge.Challenge.Alkemy.model.Testimony;
 import alkemy.challenge.Challenge.Alkemy.repository.TestimonyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,5 +15,9 @@ public class TestimonyService {
 
     public void testimonialUpdate(Testimony testimony) {
         testimonyRepository.save(testimony);
+    }
+
+    public Page<Testimony> getPageTestimony(Pageable pageable){
+        return testimonyRepository.findAll(pageable);
     }
 }
