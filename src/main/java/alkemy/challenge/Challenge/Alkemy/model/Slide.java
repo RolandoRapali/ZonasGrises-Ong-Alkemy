@@ -28,19 +28,22 @@ public class Slide implements Serializable {
 
     private String text;
 
-    //private String order;
     private Integer sequence;
 
-    //private String organizationId;
+    @ManyToOne
+    @JoinColumn(name = "slide_organization")
+    private Organization organizationId;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public Slide(String imageUrl, String text, Integer sequence) {
+    public Slide(String imageUrl, String text, Integer sequence, Organization organizationId) {
         this.imageUrl = imageUrl;
         this.text = text;
         this.sequence = sequence;
+        this.organizationId = organizationId;
     }
 }

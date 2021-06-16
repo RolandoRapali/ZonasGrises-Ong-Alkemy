@@ -80,7 +80,7 @@ public class DataLoader implements CommandLineRunner {
         Organization organization = new Organization("name", "image", "address", 123, "email", "welcomeText", "aboutUsText");
         organizationRepository.save(organization);
         for (int i = 1; i <= 5; i++) {
-            slideRepository.save(new Slide("imageUrl", "text", i));
+            slideRepository.save(new Slide("imageUrl", "text", i, organization));
         }
     }
 
