@@ -77,10 +77,13 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void loadSlidesData() {
-        Organization organization = new Organization("name", "image", "address", 123, "email", "welcomeText", "aboutUsText");
-        organizationRepository.save(organization);
+        Organization organization1 = new Organization("name", "image", "address", 123, "email", "welcomeText", "aboutUsText");
+        Organization organization2 = new Organization("name", "image", "address", 123, "email", "welcomeText", "aboutUsText");
+        organizationRepository.save(organization1);
+        organizationRepository.save(organization2);
         for (int i = 1; i <= 5; i++) {
-            slideRepository.save(new Slide("imageUrl", "text", i, organization));
+            slideRepository.save(new Slide("imageUrl", "text", i, organization1));
+            slideRepository.save(new Slide("imageUrl", "text", i, organization2));
         }
     }
 
