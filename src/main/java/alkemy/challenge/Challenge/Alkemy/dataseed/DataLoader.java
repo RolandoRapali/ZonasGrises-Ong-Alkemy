@@ -1,16 +1,7 @@
 package alkemy.challenge.Challenge.Alkemy.dataseed;
 
-import alkemy.challenge.Challenge.Alkemy.model.Activity;
-import alkemy.challenge.Challenge.Alkemy.model.Category;
-import alkemy.challenge.Challenge.Alkemy.model.News;
-import alkemy.challenge.Challenge.Alkemy.model.Role;
-import alkemy.challenge.Challenge.Alkemy.model.User;
-import alkemy.challenge.Challenge.Alkemy.repository.ActivityRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.CategoryRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.NewsRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.OrganizationRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.RoleRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
+import alkemy.challenge.Challenge.Alkemy.model.*;
+import alkemy.challenge.Challenge.Alkemy.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -68,8 +59,11 @@ public class DataLoader implements CommandLineRunner {
         Category category2 = new Category("name", "description", "imagePath");
         categoryRepository.save(category1);
         categoryRepository.save(category2);
-        newsRepository.save(new News("name", "imagePath", "content", category1));
-        newsRepository.save(new News("name", "imagePath", "content", category2));
+        for (int i = 0; i < 5; i++) {
+            newsRepository.save(new News("name", "imagePath", "content", category1));
+            newsRepository.save(new News("name", "imagePath", "content", category2));
+        }
+
     }
 
     private void loadUsersData() {
