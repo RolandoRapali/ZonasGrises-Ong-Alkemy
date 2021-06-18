@@ -37,7 +37,6 @@ public class ContactController {
             return new ResponseEntity(new Message("actualmente no se encuentran contactos registrados"), HttpStatus.NOT_FOUND);
         } else {
             return ResponseEntity.ok(contacts);
-
         }
     }
 }
