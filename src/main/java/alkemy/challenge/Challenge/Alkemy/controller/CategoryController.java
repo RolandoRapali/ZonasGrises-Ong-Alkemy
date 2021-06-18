@@ -5,15 +5,14 @@ import alkemy.challenge.Challenge.Alkemy.service.CategoryService;
 import alkemy.challenge.Challenge.Alkemy.util.Message;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import javax.validation.Valid;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
@@ -64,5 +63,17 @@ public class CategoryController {
         categoryService.save(categorieUpdated);
         return new ResponseEntity(new Message("Categoria actualizada"),
                 HttpStatus.OK);
+    }
+
+    //Get All the categories pages by his parametters
+    // Then invoque the getAllCategoriesPages for the CategoryService
+    @GetMapping
+    public ResponseEntity<List<Category>> getAllCategories(
+                        @RequestParam(defaultValue = "0") Integer pageNo,
+                        @RequestParam(defaultValue = "10") Integer pageSize,
+                        @RequestParam(defaultValue =  "id") String sortBy)
+    {
+        List<Category> list = categoryService.getAllCategoriesPages(pageNo, pageSize, sortBy);
+        return new ResponseEntity<List<Category>>(list, new HttpHeaders(),HttpStatus.OK);
     }
 }
