@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.Base64.Decoder;
 import java.util.List;
 
@@ -19,13 +18,19 @@ public class SlideService {
     /* Inyeccion para decodificar un archivo base 64 */
     @Autowired
     private Decoder decoder;
-
+    
     @Autowired
     private SlideRepository slideRepository;
-
+    
     /* Inyeccion de clase creada para convertir archivo base 64 a MultipartFile*/
     @Autowired
     private Base64ConverterMultipartFile base64ConverterMultipartFile;
+    
+    public ResponseEntity<Slide> detailSlide(Long id){
+        if(slideRepository.existsById(id)){
+            Slide s = slideRepository.getById(id);
+            return ResponseEntity.ok(s);
+        }
 
     /*Metodo para convertir archivo base64 a multipartFile para luego poder almacenarlo en amazonS3*/
     public MultipartFile convertMultipartFile(byte[] file){

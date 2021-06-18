@@ -6,12 +6,12 @@ import alkemy.challenge.Challenge.Alkemy.service.SlideService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,6 +23,11 @@ public class SlideController {
 
     @Autowired
     private AmazonClientService amazonClientService;
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Slide> detailSlide(@PathVariable(value = "id") Long id){
+        return slideService.detailSlide(id);
+    }
 
     @PostMapping("/")
     public ResponseEntity<Slide> createSlide(@RequestBody @Valid Slide slide, byte[] file){
