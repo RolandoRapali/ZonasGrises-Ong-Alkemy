@@ -3,8 +3,11 @@ package alkemy.challenge.Challenge.Alkemy.controller;
 import alkemy.challenge.Challenge.Alkemy.model.Testimony;
 import alkemy.challenge.Challenge.Alkemy.service.TestimonyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/testimonials")
@@ -24,4 +27,15 @@ public class TestimonyController {
         return ResponseEntity.ok("resource saved");
 
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteTestimony(@PathVariable Long id) {
+        Optional<Testimony> testimony = testimonyService.findById(id);
+        if (testimony.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        testimonyService.softDelete(testimony.get());
+        return new ResponseEntity(HttpStatus.ACCEPTED);
+    }
+
 }

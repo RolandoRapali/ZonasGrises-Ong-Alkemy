@@ -28,10 +28,11 @@ public class Slide implements Serializable {
 
     private String text;
 
-    //private String order;
-    private String sequence;
+    private Integer sequence;
 
-    //private String organizationId;
+    @ManyToOne
+    @JoinColumn(name = "slide_organization")
+    private Organization organizationId;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -39,4 +40,10 @@ public class Slide implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    public Slide(String imageUrl, String text, Integer sequence, Organization organizationId) {
+        this.imageUrl = imageUrl;
+        this.text = text;
+        this.sequence = sequence;
+        this.organizationId = organizationId;
+    }
 }

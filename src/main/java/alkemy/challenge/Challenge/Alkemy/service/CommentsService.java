@@ -2,9 +2,13 @@ package alkemy.challenge.Challenge.Alkemy.service;
 
 import alkemy.challenge.Challenge.Alkemy.model.Comments;
 import alkemy.challenge.Challenge.Alkemy.repository.CommentsRepository;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CommentsService {
 
     @Autowired
@@ -14,7 +18,31 @@ public class CommentsService {
         commentsRepository.save(comment);
     }
 
-    public List<Comments> listComments(Long id) {
-        return commentsRepository.findByNewsId(id);
+    //Listar todos los comentarios del id de post
+    public List<Comments> listComments(Long comments_id) {
+        return commentsRepository.findByNewsId(comments_id);
     }
+
+    public Optional<Comments> findById(Long id) {
+        return commentsRepository.findById(id);
+    }
+
+    public void update(Comments commentAct, Comments comment) {
+        commentAct.setBody(comment.getBody());
+        commentAct.setUserId(comment.getUserId());
+        commentAct.setNewsId(comment.getNewsId());
+        commentsRepository.save(commentAct);
+    }
+
+    
+    public List<String> ListBody() {
+        List<Comments> listComents = commentsRepository.findAll();
+        List<String> listBody = new ArrayList<>();
+        listComents.forEach(c -> {
+            listBody.add(c.getBody());
+        });
+        return listBody;
+    }
+            
 }
+

@@ -34,7 +34,7 @@ public class News implements Serializable {
     @NotNull
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "news_category_id")
     private Category categoryId;
 
