@@ -1,12 +1,16 @@
 package alkemy.challenge.Challenge.Alkemy.service;
 
 import alkemy.challenge.Challenge.Alkemy.converter.Base64ConverterMultipartFile;
+import alkemy.challenge.Challenge.Alkemy.model.Slide;
+import alkemy.challenge.Challenge.Alkemy.repository.SlideRepository;
 import lombok.RequiredArgsConstructor;
-import java.util.Base64.Decoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Base64.Decoder;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +44,9 @@ public class SlideService {
         slideRepository.save(slide);
     }
 
+    public List<Slide> findSlidesByOrganization(Long id) {
+        return slideRepository.findByOrganizationIdOrderBySequence(id);
+    }
     public ResponseEntity<Slide> updateSlide(Long id, Slide slideDetail){
         if (slideRepository.existsById(id)){
             Slide slide = slideRepository.getById(id);
