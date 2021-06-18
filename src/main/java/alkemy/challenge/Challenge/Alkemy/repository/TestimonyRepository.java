@@ -4,8 +4,10 @@ import alkemy.challenge.Challenge.Alkemy.model.Testimony;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface TestimonialsRepository extends JpaRepository<Testimony, String> {
+public interface TestimonyRepository extends JpaRepository<Testimony, String> {
 
-
+    Optional<Testimony> findByIdAndDeletedFalse(Long id);
 }

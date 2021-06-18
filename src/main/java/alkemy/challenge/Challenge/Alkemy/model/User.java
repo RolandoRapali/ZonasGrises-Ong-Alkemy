@@ -1,64 +1,104 @@
 package alkemy.challenge.Challenge.Alkemy.model;
 
-import alkemy.challenge.Challenge.Alkemy.model.Roles;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Data
-@EqualsAndHashCode
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class User implements Serializable {
+@Table(name = "users")
+public class User implements Serializable, UserDetails {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_users")
     private Long id;
 
-    @NonNull
-    @Column(nullable = false)
+    @NotNull
     private String firstName;
 
-    @NonNull
-    @Column(nullable = false)
+    @NotNull
     private String lastName;
 
-    @NonNull
-    @Column(nullable = false, unique = true)
+    @NotNull
+    @Column(unique = true)
     private String email;
 
-    @NonNull
-    @Column(nullable = false)
+    @NotNull
     private String password;
 
-    @Column(nullable = true)
     private String photo;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Roles> roles;
+    @ManyToOne
+    @JoinColumn(name = "user_role")
+    private Role role;
 
-    private Boolean deleted;
+    @NotNull
+    private Boolean deleted = false;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "create_at")
-    private Date create_at_register;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+    public User(String firstName, String lastName, String email, String password, String photo, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.photo = photo;
+        this.role = role;
+    }
+
+    //USER DETAILS
 
     @Override
-    public String toString() {
-        return "User{"
-                + "firstName='" + firstName + '\''
-                + ", lastName='" + lastName + '\''
-                + ", email='" + email + '\''
-                + ", password='" + password + '\''
-                + ", photo='" + photo + '\''
-                + ", roles=" + roles
-                + '}';
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> roles = new ArrayList<>();
+        roles.add(new SimpleGrantedAuthority(role.getName()));
+        return roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return !deleted;
     }
 }

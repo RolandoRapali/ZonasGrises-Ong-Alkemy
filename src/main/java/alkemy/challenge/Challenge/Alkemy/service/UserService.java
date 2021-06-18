@@ -1,16 +1,18 @@
 package alkemy.challenge.Challenge.Alkemy.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import alkemy.challenge.Challenge.Alkemy.exception.UserAlreadyExistException;
+import alkemy.challenge.Challenge.Alkemy.model.User;
+import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import alkemy.challenge.Challenge.Alkemy.model.User;
-import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
+
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -29,7 +31,7 @@ public class UserService implements UserDetailsService {
     }
 
     public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+        return userRepository.findByIdAndDeletedFalse(id);
     }
 
     public void softDelete(User user) {
@@ -39,13 +41,13 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return null;
-//        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
+        //return null;
+        return (UserDetails) userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
     }
 
-    public void saveUser(User user) throws UserAlreadyExistException {
+    public String saveUser(User user) throws UserAlreadyExistException {
 
-//        boolean userExist = userRepository.findByEmail(user.getEmail()).isPresent();
+        //boolean userExist = userRepository.findByEmail(user.getEmail()).isPresent();
         boolean userExist = false;
 
         if (userExist) {
@@ -55,6 +57,10 @@ public class UserService implements UserDetailsService {
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         userRepository.save(user);
+
+        String token = UUID.randomUUID().toString(); //Se crea un token generado aleatoriamente y se retorna el mismo.
+
+        return token;
     }
 
 }

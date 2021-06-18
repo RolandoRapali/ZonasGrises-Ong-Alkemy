@@ -1,9 +1,6 @@
 package alkemy.challenge.Challenge.Alkemy.security.authentication;
 
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
-
 
 public class AuthenticationRequest implements Serializable {
 
