@@ -1,16 +1,7 @@
 package alkemy.challenge.Challenge.Alkemy.dataseed;
 
-import alkemy.challenge.Challenge.Alkemy.model.Activity;
-import alkemy.challenge.Challenge.Alkemy.model.Category;
-import alkemy.challenge.Challenge.Alkemy.model.News;
-import alkemy.challenge.Challenge.Alkemy.model.Role;
-import alkemy.challenge.Challenge.Alkemy.model.User;
-import alkemy.challenge.Challenge.Alkemy.repository.ActivityRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.CategoryRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.NewsRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.OrganizationRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.RoleRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
+import alkemy.challenge.Challenge.Alkemy.model.*;
+import alkemy.challenge.Challenge.Alkemy.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,11 +31,15 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     OrganizationRepository organizationRepository;
 
+    @Autowired
+    SlideRepository slideRepository;
+
     @Override
     public void run(String... args) throws Exception {
         loadActivitiesData();
         loadNewsData();
         loadUsersData();
+        loadSlidesData();
     }
 
     private void loadActivitiesData() {
@@ -68,8 +63,11 @@ public class DataLoader implements CommandLineRunner {
         Category category2 = new Category("name", "description", "imagePath");
         categoryRepository.save(category1);
         categoryRepository.save(category2);
-        newsRepository.save(new News("name", "imagePath", "content", category1));
-        newsRepository.save(new News("name", "imagePath", "content", category2));
+        for (int i = 0; i < 5; i++) {
+            newsRepository.save(new News("name", "imagePath", "content", category1));
+            newsRepository.save(new News("name", "imagePath", "content", category2));
+        }
+
     }
 
     private void loadUsersData() {
@@ -77,8 +75,21 @@ public class DataLoader implements CommandLineRunner {
         Role adminRol = new Role("ROLE_ADMIN", "rol de admin");
         roleRepository.save(userRol);
         roleRepository.save(adminRol);
-        userRepository.save(new User("firstName", "lastName", "user@alkemy.com", bCryptPasswordEncoder.encode("user"), "photo", userRol));
-        userRepository.save(new User("firstName", "lastName", "admin@alkemy.com", bCryptPasswordEncoder.encode("admin"), "photo", adminRol));
+        for (int i = 0; i < 10 ; i++) {
+            userRepository.save(new User("firstName", "lastName", "user" + i + "@alkemy.com", bCryptPasswordEncoder.encode("user"), "photo", userRol));
+            userRepository.save(new User("firstName", "lastName", "admin" + i + "@alkemy.com", bCryptPasswordEncoder.encode("admin"), "photo", adminRol));
+        }
+    }
+
+    private void loadSlidesData() {
+        Organization organization1 = new Organization("name", "image", "address", 123, "email", "welcomeText", "aboutUsText");
+        Organization organization2 = new Organization("name", "image", "address", 123, "email", "welcomeText", "aboutUsText");
+        organizationRepository.save(organization1);
+        organizationRepository.save(organization2);
+        for (int i = 1; i <= 5; i++) {
+            slideRepository.save(new Slide("imageUrl", "text", i, organization1));
+            slideRepository.save(new Slide("imageUrl", "text", i, organization2));
+        }
     }
 
 }
