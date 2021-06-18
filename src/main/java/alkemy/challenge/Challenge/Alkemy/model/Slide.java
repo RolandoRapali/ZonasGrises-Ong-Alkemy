@@ -5,14 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.web.multipart.MultipartFile;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Data
 @AllArgsConstructor
@@ -28,18 +24,26 @@ public class Slide implements Serializable {
     @Column(name = "id_slides")
     private Long id;
 
-    private String imageUrl;
+    private MultipartFile imageUrl;
 
     private String text;
 
-    //private String order;
-    private String sequence;
+    private Integer sequence;
 
-    //private String organizationId;
+    @ManyToOne
+    @JoinColumn(name = "slide_organization")
+    private Organization organizationId;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    public Slide(MultipartFile imageUrl, String text, Integer sequence, Organization organizationId) {
+        this.imageUrl = imageUrl;
+        this.text = text;
+        this.sequence = sequence;
+        this.organizationId = organizationId;
+    }
 }
