@@ -19,17 +19,22 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "comments")
 public class Comments implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")       
-    private Long post_id;
-    
+    @Column(name = "id_comments")
+    private Long id;
+
     private String body;
-    
+
     @ManyToOne
-    @JoinColumn(name = "comments_user_id")
-    private  User user_id;
+    @JoinColumn(name = "comments_user")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "comments_news")
+    private News news;
+
 }
