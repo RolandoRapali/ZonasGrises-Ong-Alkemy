@@ -6,10 +6,18 @@ import alkemy.challenge.Challenge.Alkemy.util.Message;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/testimonials")
@@ -43,4 +51,24 @@ public class TestimonyController {
         return ResponseEntity.ok("resource saved");
 
     }
+
+    @GetMapping("/listTestimony")
+    public Page<Testimony> listTestimony(@PageableDefault(size = 10, page = 0) Pageable pageable){
+        Page<Testimony> list = testimonyService.getPageTestimony(pageable);
+        if (list.isEmpty()) {
+            return null;
+        } else{
+            return list;
+        }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteTestimony(@PathVariable Long id) {
+        Optional<Testimony> testimony = testimonyService.findById(id);
+        if (testimony.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        testimonyService.softDelete(testimony.get());
+        return new ResponseEntity(HttpStatus.ACCEPTED);
+    }
+
 }
