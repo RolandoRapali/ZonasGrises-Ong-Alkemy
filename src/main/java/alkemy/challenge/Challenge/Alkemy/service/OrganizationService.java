@@ -12,20 +12,16 @@ public class OrganizationService {
 
     private final OrganizationRepository organizationRepository;
 
-    public Organization bringOrganization(int id) {
+    public Organization bringOrganization(Long id) {
         return organizationRepository.getById((long) id);
     }
 
     public void update(OrganizationDto organizationDto) {
-        Organization organization = bringOrganization(1);
+        Organization organization = bringOrganization(1L);
         organization.setName(organizationDto.getName());
         organization.setImage(organizationDto.getImage());
-        if (organizationDto.getAdress() != null) {
-            organization.setAddress(organizationDto.getAdress());
-        }
-        if (organizationDto.getPhone() != 0) {
-            organization.setPhone(organizationDto.getPhone());
-        }
+        if(organizationDto.getAdress() != null)organization.setAddress(organizationDto.getAdress());
+        if(organizationDto.getPhone() != 0)organization.setPhone(organizationDto.getPhone());
         organizationRepository.save(organization);
     }
 }
