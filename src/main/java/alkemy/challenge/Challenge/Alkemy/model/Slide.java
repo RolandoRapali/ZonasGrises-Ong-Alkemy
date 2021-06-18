@@ -28,7 +28,7 @@ public class Slide implements Serializable {
 
     private String text;
 
-    private String sequence;
+    private Integer sequence;
 
     @ManyToOne
     @JoinColumn(name = "slide_organization")
@@ -40,4 +40,10 @@ public class Slide implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    public Slide(String imageUrl, String text, Integer sequence, Organization organizationId) {
+        this.imageUrl = imageUrl;
+        this.text = text;
+        this.sequence = sequence;
+        this.organizationId = organizationId;
+    }
 }

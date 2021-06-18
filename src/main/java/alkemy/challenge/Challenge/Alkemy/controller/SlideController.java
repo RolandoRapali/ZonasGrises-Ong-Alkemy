@@ -21,4 +21,15 @@ public class SlideController {
     public List<Slide> listSlidesByOrganizationId(@PathVariable Long id) {
         return slideService.findSlidesByOrganization(id);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Slide> updateSlide(@PathVariable(value = "id")Long id,
+            @Valid @RequestBody Slide slideDetails){
+                return slideService.updateSlide(id, slideDetails);
+            }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Slide> deleteSlide(@PathVariable(value = "id") Long id){
+        return slideService.deletedSlide(id);
+    }
 }

@@ -1,6 +1,5 @@
-package alkemy.challenge.Challenge.Alkemy.converter;
+package alkemy.challenge.Challenge.Alkemy.dto;
 
-import alkemy.challenge.Challenge.Alkemy.dto.OrganizationDto;
 import alkemy.challenge.Challenge.Alkemy.model.Organization;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +13,6 @@ public class OrganizationDtoConverter {
                 .phone(orgDto.getPhone())
                 .adress(orgDto.getAddress())
                 .image(orgDto.getImage())
-                .linkdnUrl(orgDto.getLinkdnUrl())
-                .facebookUrl(orgDto.getFacebookUrl())
-                .instagramUrl(orgDto.getInstagramUrl())
                 .build();
     }
 
