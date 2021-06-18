@@ -62,6 +62,7 @@ public class MailWithAttachmentService {
     }
 
     public void sendMail(Session session) throws MessagingException, IOException {
+
         Message message = createMail(session);
         Transport.send(message);
     }
