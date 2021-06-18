@@ -10,8 +10,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -53,5 +57,28 @@ public class MemberController {
     public List<Member> listMembers(){
         return (List<Member>) memberRepository.findAll();
     }
+
+    @GetMapping
+    public List<Member> listMembers(){
+        return (List<Member>) memberRepository.findAll();
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMember(@PathVariable(value = "id") Long id){
+        Map<String, Object> response = new HashMap<>();
+
+        if(id > 0){
+            Member member = memberRepository.findById(id).orElse(null);
+            memberRepository.deleteById(id);
+            if(member == null){
+                response.put("member_null","Member doesn't exist");
+            }
+        } else {
+            response.put("id_0","The ID cannot be 0");
+        }
+
+    }
+
+
 
 }
