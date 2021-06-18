@@ -45,6 +45,12 @@ public class Organization implements Serializable {
 
     private boolean deleted = false;
 
+    private String linkdnUrl;
+
+    private String facebookUrl;
+
+    private String instagramUrl;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
