@@ -49,7 +49,6 @@ public class OrganizationController {
         } else {
             organizationService.update(organizationDto);
             return new ResponseEntity(new Message("la organizacion ha sido modificada con exito."), HttpStatus.OK);
-
         }
     }
 }

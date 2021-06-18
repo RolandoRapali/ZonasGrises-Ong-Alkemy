@@ -13,6 +13,15 @@ public class ContactService {
     @Autowired
     private ContactRepository contactRepository;
 
+    public void createContact(Contact contact) {
+        contactRepository.save(contact);
+    }
+
+    public List<Contact> bringAllContacts() {
+        return contactRepository.findAll();
+
+    }
+
     public List<Contact> listContact(Long id) {
         return contactRepository.findAllById(id);
     }
