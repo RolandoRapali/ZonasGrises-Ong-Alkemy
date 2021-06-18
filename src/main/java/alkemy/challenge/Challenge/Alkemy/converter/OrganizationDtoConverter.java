@@ -14,6 +14,9 @@ public class OrganizationDtoConverter {
                 .phone(orgDto.getPhone())
                 .adress(orgDto.getAddress())
                 .image(orgDto.getImage())
+                .linkdnUrl(orgDto.getLinkdnUrl())
+                .facebookUrl(orgDto.getFacebookUrl())
+                .instagramUrl(orgDto.getInstagramUrl())
                 .build();
     }
 
