@@ -4,6 +4,7 @@ import alkemy.challenge.Challenge.Alkemy.converter.Base64ConverterMultipartFile;
 import lombok.RequiredArgsConstructor;
 import java.util.Base64.Decoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,6 +15,9 @@ public class SlideService {
     /* Inyeccion para decodificar un archivo base 64 */
     @Autowired
     private Decoder decoder;
+
+    @Autowired
+    private SlideRepository slideRepository;
 
     /* Inyeccion de clase creada para convertir archivo base 64 a MultipartFile*/
     @Autowired
@@ -34,5 +38,28 @@ public class SlideService {
         slide.setCreatedAt(slide.getCreatedAt());
         slide.setUpdatedAt(slide.getUpdatedAt());
         slideRepository.save(slide);
+    }
+
+    public ResponseEntity<Slide> updateSlide(Long id, Slide slideDetail){
+        if (slideRepository.existsById(id)){
+            Slide slide = slideRepository.getById(id);
+            slide.setImageUrl(slideDetail.getImageUrl());
+            slide.setText(slideDetail.getText());
+            slide.setSequence(slideDetail.getSequence());
+            slide.setCreatedAt(slideDetail.getCreatedAt());
+            slide.setUpdatedAt(slideDetail.getUpdatedAt());
+            final Slide updatSlide = slideRepository.save(slide);
+            return ResponseEntity.ok(updatSlide);
+        }
+        return (ResponseEntity<Slide>) ResponseEntity.notFound();
+    }
+
+    public ResponseEntity<Slide> deletedSlide(Long id){
+        if(slideRepository.existsById(id)){
+            Slide s = slideRepository.getById(id);
+            slideRepository.delete(s);
+            return (ResponseEntity<Slide>) ResponseEntity.ok();
+        }
+        return (ResponseEntity<Slide>) ResponseEntity.notFound();
     }
 }

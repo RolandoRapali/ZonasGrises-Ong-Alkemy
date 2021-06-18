@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +27,16 @@ public class SlideController {
         slideService.createSlide(file, slide);
         amazonClientService.uploadFile(slideService.convertMultipartFile(file));
         return ResponseEntity.ok(slide);
+    }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<Slide> updateSlide(@PathVariable(value = "id")Long id, 
+            @Valid @RequestBody Slide slideDetails){
+                return slideService.updateSlide(id, slideDetails);
+            }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Slide> deleteSlide(@PathVariable(value = "id") Long id){
+        return slideService.deletedSlide(id);
     }
 }
