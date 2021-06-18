@@ -24,4 +24,10 @@ public class OrganizationDto {
 
     private String adress;
 
+    private String linkdnUrl;
+
+    private String facebookUrl;
+
+    private String instagramUrl;
+
 }

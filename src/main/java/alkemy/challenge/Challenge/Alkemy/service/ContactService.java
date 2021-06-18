@@ -22,4 +22,7 @@ public class ContactService {
 
     }
 
+    public List<Contact> listContact(Long id) {
+        return contactRepository.findAllById(id);
+    }
 }

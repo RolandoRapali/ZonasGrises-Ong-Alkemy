@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/contacts")
 public class ContactController {
@@ -39,4 +41,11 @@ public class ContactController {
             return ResponseEntity.ok(contacts);
         }
     }
+    @GetMapping("/backoffice/contacts")
+    public List<Contact> listContact(@PathVariable long id){
+        return contactService.listContact(id);
+
+    }
+
+
 }
