@@ -31,11 +31,15 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     OrganizationRepository organizationRepository;
 
+    @Autowired
+    SlideRepository slideRepository;
+
     @Override
     public void run(String... args) throws Exception {
         loadActivitiesData();
         loadNewsData();
         loadUsersData();
+        loadSlidesData();
     }
 
     private void loadActivitiesData() {
@@ -74,6 +78,17 @@ public class DataLoader implements CommandLineRunner {
         for (int i = 0; i < 10 ; i++) {
             userRepository.save(new User("firstName", "lastName", "user" + i + "@alkemy.com", bCryptPasswordEncoder.encode("user"), "photo", userRol));
             userRepository.save(new User("firstName", "lastName", "admin" + i + "@alkemy.com", bCryptPasswordEncoder.encode("admin"), "photo", adminRol));
+        }
+    }
+
+    private void loadSlidesData() {
+        Organization organization1 = new Organization("name", "image", "address", 123, "email", "welcomeText", "aboutUsText");
+        Organization organization2 = new Organization("name", "image", "address", 123, "email", "welcomeText", "aboutUsText");
+        organizationRepository.save(organization1);
+        organizationRepository.save(organization2);
+        for (int i = 1; i <= 5; i++) {
+            slideRepository.save(new Slide("imageUrl", "text", i, organization1));
+            slideRepository.save(new Slide("imageUrl", "text", i, organization2));
         }
     }
 
