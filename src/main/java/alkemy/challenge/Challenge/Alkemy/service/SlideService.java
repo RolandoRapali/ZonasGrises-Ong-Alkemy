@@ -4,12 +4,12 @@ import alkemy.challenge.Challenge.Alkemy.converter.Base64ConverterMultipartFile;
 import alkemy.challenge.Challenge.Alkemy.model.Slide;
 import alkemy.challenge.Challenge.Alkemy.repository.SlideRepository;
 import lombok.RequiredArgsConstructor;
-import java.util.Base64.Decoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Base64.Decoder;
 import java.util.List;
 
 @Service
@@ -22,7 +22,6 @@ public class SlideService {
 
     @Autowired
     private SlideRepository slideRepository;
-    private final SlideRepository slideRepository;
 
     /* Inyeccion de clase creada para convertir archivo base 64 a MultipartFile*/
     @Autowired
