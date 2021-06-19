@@ -1,9 +1,15 @@
 package alkemy.challenge.Challenge.Alkemy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import alkemy.challenge.Challenge.Alkemy.service.AmazonClientService;
@@ -12,16 +18,29 @@ import alkemy.challenge.Challenge.Alkemy.service.AmazonClientService;
 @RequestMapping("/storage")
 public class AmazonClientController {
 
-    private AmazonClientService amazonClient;
-
     @Autowired
-    AmazonClientController(AmazonClientService amazonClient) {
-        this.amazonClient = amazonClient;
+    private AmazonClientService amazonClientService;
+
+
+    @PostMapping("/uploadFile")
+    public ResponseEntity<String> uploadFile(@RequestParam(value = "file") MultipartFile file) {
+        return new ResponseEntity<>(amazonClientService.uploadFile(file), HttpStatus.OK);
     }
 
-    /*Endpoint para subir imagen */
-    @PostMapping("/uploadFile")
-    public String uploadFile(@RequestPart(value = "file") MultipartFile file) {
-        return this.amazonClient.uploadFile(file);
+    @GetMapping("/downloadFile/{fileName}")
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
+        byte[] data = amazonClientService.downloadFile(fileName);
+        ByteArrayResource resource = new ByteArrayResource(data);
+        return ResponseEntity
+                .ok()
+                .contentLength(data.length)
+                .header("Content-type", "application/octet-stream")
+                .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
+                .body(resource);
+    }
+
+    @DeleteMapping("/deleteFile/{fileName}")
+    public ResponseEntity<String> deleteFile(@PathVariable String fileName) {
+        return new ResponseEntity<>(amazonClientService.deleteFile(fileName), HttpStatus.OK);
     }
 }
