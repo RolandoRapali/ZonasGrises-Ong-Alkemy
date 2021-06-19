@@ -4,6 +4,8 @@ import alkemy.challenge.Challenge.Alkemy.model.Activity;
 import alkemy.challenge.Challenge.Alkemy.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,10 +17,15 @@ public class ActivityController {
     @Autowired
     private ActivityService activityService;
 
+    @PreAuthorize("hasRole(ROLE_ADMIN)")
     @PostMapping("/activities")
-    public ResponseEntity<Activity> createActivities(@RequestBody @Valid Activity activity) {
-        activityService.save(activity);
-        return ResponseEntity.ok(activity);
+    public ResponseEntity<Activity> createActivities(@RequestBody @Valid Activity activities, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return (ResponseEntity<Activity>) ResponseEntity.notFound();
+        }
+        activityService.save(activities);
+        return ResponseEntity.ok(activities);
     }
 
 

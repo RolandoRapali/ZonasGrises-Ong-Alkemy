@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class MemberService {
         return memberRepository.findById(id).orElse(null);
     }
 
-    @Transactional
+    /*@Transactional
     public Page<Member> findAllByPage(Pageable pageable) throws Exception{
         try{
             Page<Member> memberByPage = memberRepository.findAllByPage(pageable);
@@ -32,6 +31,10 @@ public class MemberService {
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
+    }*/
+
+    public Page<Member> findAll(Pageable pageable) {
+        return memberRepository.findAll(pageable);
     }
 
     public void save(Member member){

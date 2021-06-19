@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.NotNull;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -42,14 +43,13 @@ public class Organization implements Serializable {
 
     private String aboutUsText;
 
-    private boolean deleted = false;
-
-
     private String linkdnUrl;
 
     private String facebookUrl;
 
     private String instagramUrl;
+
+    private boolean deleted = false;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -24,7 +24,9 @@ public class Slide implements Serializable {
     @Column(name = "id_slides")
     private Long id;
 
-    private MultipartFile imageUrl;
+    /*private MultipartFile imageUrl;*/
+
+    private String imageUrl;
 
     private String text;
 
@@ -40,8 +42,14 @@ public class Slide implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public Slide(MultipartFile imageUrl, String text, Integer sequence, Organization organizationId) {
+    public Slide(String imageUrl, String text, Integer sequence, Organization organizationId) {
         this.imageUrl = imageUrl;
+        this.text = text;
+        this.sequence = sequence;
+        this.organizationId = organizationId;
+    }
+
+    public Slide(String text, Integer sequence, Organization organizationId) {
         this.text = text;
         this.sequence = sequence;
         this.organizationId = organizationId;

@@ -1,20 +1,18 @@
 package alkemy.challenge.Challenge.Alkemy.controller;
 
-import alkemy.challenge.Challenge.Alkemy.dto.OrganizationDto;
 import alkemy.challenge.Challenge.Alkemy.converter.OrganizationDtoConverter;
-import alkemy.challenge.Challenge.Alkemy.model.Organization;
+import alkemy.challenge.Challenge.Alkemy.dto.OrganizationDto;
+import alkemy.challenge.Challenge.Alkemy.model.Slide;
 import alkemy.challenge.Challenge.Alkemy.service.OrganizationService;
+import alkemy.challenge.Challenge.Alkemy.service.SlideService;
 import alkemy.challenge.Challenge.Alkemy.util.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/organization")
@@ -25,6 +23,7 @@ public class OrganizationController {
 
     private final OrganizationDtoConverter organizationDtoConverter;
 
+    private final SlideService slideService;
 
     @GetMapping("/public")
     public OrganizationDto bringOrganization(@RequestParam(name = "id", defaultValue = "1") Long id) {
@@ -51,5 +50,10 @@ public class OrganizationController {
             organizationService.update(organizationDto);
             return new ResponseEntity(new Message("la organizacion ha sido modificada con exito."), HttpStatus.OK);
         }
+    }
+
+    @GetMapping("/{id}/slides")
+    public List<Slide> listOrganizationSlides(@PathVariable Long id) {
+        return slideService.findSlidesByOrganization(id);
     }
 }
