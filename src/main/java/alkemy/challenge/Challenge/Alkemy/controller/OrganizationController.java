@@ -7,6 +7,8 @@ import alkemy.challenge.Challenge.Alkemy.service.OrganizationService;
 import alkemy.challenge.Challenge.Alkemy.service.SlideService;
 import alkemy.challenge.Challenge.Alkemy.util.Message;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +21,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrganizationController {
 
-    private final OrganizationService organizationService;
+    @Autowired
+    private OrganizationService organizationService;
 
-    private final OrganizationDtoConverter organizationDtoConverter;
+    @Autowired
+    private OrganizationDtoConverter organizationDtoConverter;
 
-    private final SlideService slideService;
+    @Autowired
+    private SlideService slideService;
 
     @GetMapping("/public")
     public OrganizationDto bringOrganization(@RequestParam(name = "id", defaultValue = "1") Long id) {

@@ -17,8 +17,8 @@ import java.util.Base64.Decoder;
 public class SlideService {
 
     /* Inyeccion para decodificar un archivo base 64 */
-    @Autowired
-    private Decoder decoder;
+    /*@Autowired
+    private Decoder decoder;*/
     
     /* Inyeccion de clase creada para convertir archivo base 64 a MultipartFile*/
     @Autowired
@@ -55,7 +55,7 @@ public class SlideService {
     }
 
     public void createSlide(byte[] file, Slide slide){
-        String imageUrl = decoder.decode(file).toString();
+        String imageUrl = file.toString();
         slide.setImageUrl(imageUrl);
         slideRepository.save(slide);
         amazonClientService.uploadFile(convertMultipartFile(imageUrl));
