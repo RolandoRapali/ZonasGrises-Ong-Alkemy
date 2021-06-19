@@ -7,7 +7,6 @@ import alkemy.challenge.Challenge.Alkemy.service.OrganizationService;
 import alkemy.challenge.Challenge.Alkemy.service.SlideService;
 import alkemy.challenge.Challenge.Alkemy.util.Message;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +58,6 @@ public class OrganizationController {
 
     @GetMapping("/{id}/slides")
     public List<Slide> listOrganizationSlides(@PathVariable Long id) {
-//        return slideService.findSlidesByOrganization(id);
-        return null;
+        return slideService.findSlidesByOrganization(id);
     }
 }
