@@ -49,9 +49,4 @@ public class Slide implements Serializable {
         this.organizationId = organizationId;
     }
 
-    public Slide(String text, Integer sequence, Organization organizationId) {
-        this.text = text;
-        this.sequence = sequence;
-        this.organizationId = organizationId;
-    }
 }
