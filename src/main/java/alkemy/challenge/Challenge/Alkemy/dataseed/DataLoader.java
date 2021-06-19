@@ -91,8 +91,8 @@ public class DataLoader implements CommandLineRunner {
         for (int i = 1; i <= 5; i++) {
             /*slideRepository.save(new Slide( "imageUrl", "text", i, organization1));
             slideRepository.save(new Slide("imageUrl", "text", i, organization2));*/
-            slideRepository.save(new Slide( "text", i, organization1));
-            slideRepository.save(new Slide("text", i, organization2));
+            slideRepository.save(new Slide( "imageUrl","text", i, organization1));
+            slideRepository.save(new Slide("imageUrl","text", i, organization2));
         }
     }
 
