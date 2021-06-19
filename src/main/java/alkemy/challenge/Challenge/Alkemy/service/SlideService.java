@@ -21,7 +21,7 @@ public class SlideService {
     private Decoder decoder;*/
     
     /* Inyeccion de clase creada para convertir archivo base 64 a MultipartFile*/
-    @Autowired
+//    @Autowired
     private Base64ConverterMultipartFile base64ConverterMultipartFile;
 
     @Autowired

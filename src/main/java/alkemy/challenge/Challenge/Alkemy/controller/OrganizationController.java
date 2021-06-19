@@ -59,6 +59,7 @@ public class OrganizationController {
 
     @GetMapping("/{id}/slides")
     public List<Slide> listOrganizationSlides(@PathVariable Long id) {
-        return slideService.findSlidesByOrganization(id);
+//        return slideService.findSlidesByOrganization(id);
+        return null;
     }
 }
