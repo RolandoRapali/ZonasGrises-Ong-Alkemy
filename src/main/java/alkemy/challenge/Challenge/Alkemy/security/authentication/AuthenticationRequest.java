@@ -1,8 +1,12 @@
 package alkemy.challenge.Challenge.Alkemy.security.authentication;
 
+import alkemy.challenge.Challenge.Alkemy.model.User;
+
 import java.io.Serializable;
 
 public class AuthenticationRequest implements Serializable {
+
+    private User user;
 
     private String username;
     private String password;
