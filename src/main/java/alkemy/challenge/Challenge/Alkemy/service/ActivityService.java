@@ -14,8 +14,8 @@ public class ActivityService {
     @Autowired
     private ActivityRepository activityRepository;
 
-    public static Optional<Activity> getActivitiesByID(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Optional<Activity> getActivitiesByID(Long id) {
+        return activityRepository.findById(id);
     }
 
     public ResponseEntity<Activity> updateActivities(Long activitiesId, Activity activityDetails) {
