@@ -75,6 +75,8 @@ public class DataLoader implements CommandLineRunner {
         Role adminRol = new Role("ROLE_ADMIN", "rol de admin");
         roleRepository.save(userRol);
         roleRepository.save(adminRol);
+        userRepository.save(new User("firstName", "lastName", "user@alkemy.com", bCryptPasswordEncoder.encode("user"), "photo", userRol));
+        userRepository.save(new User("firstName", "lastName", "admin@alkemy.com", bCryptPasswordEncoder.encode("admin"), "photo", adminRol));
         for (int i = 0; i < 10 ; i++) {
             userRepository.save(new User("firstName", "lastName", "user" + i + "@alkemy.com", bCryptPasswordEncoder.encode("user"), "photo", userRol));
             userRepository.save(new User("firstName", "lastName", "admin" + i + "@alkemy.com", bCryptPasswordEncoder.encode("admin"), "photo", adminRol));
@@ -87,8 +89,10 @@ public class DataLoader implements CommandLineRunner {
         organizationRepository.save(organization1);
         organizationRepository.save(organization2);
         for (int i = 1; i <= 5; i++) {
-            slideRepository.save(new Slide("imageUrl", "text", i, organization1));
-            slideRepository.save(new Slide("imageUrl", "text", i, organization2));
+            /*slideRepository.save(new Slide( "imageUrl", "text", i, organization1));
+            slideRepository.save(new Slide("imageUrl", "text", i, organization2));*/
+            slideRepository.save(new Slide( "imageUrl","text", i, organization1));
+            slideRepository.save(new Slide("imageUrl","text", i, organization2));
         }
     }
 
