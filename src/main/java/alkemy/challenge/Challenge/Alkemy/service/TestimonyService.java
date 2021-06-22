@@ -2,9 +2,13 @@ package alkemy.challenge.Challenge.Alkemy.service;
 
 import alkemy.challenge.Challenge.Alkemy.model.Testimony;
 import alkemy.challenge.Challenge.Alkemy.repository.TestimonyRepository;
+import alkemy.challenge.Challenge.Alkemy.util.Message;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,27 +19,43 @@ public class TestimonyService {
     @Autowired
     private TestimonyRepository testimonyRepository;
 
-    public Testimony save(Testimony testimony) {
-        return testimonyRepository.save(testimony);
-    }
-
-    public void testimonialUpdate(Testimony testimony, Testimony testimonyAux) {
-        testimonyAux.setName(testimony.getName());
-        testimonyAux.setContent(testimony.getContent());
-        testimonyAux.setImage(testimony.getImage());
-        testimonyRepository.save(testimonyAux);
+    public ResponseEntity<?> createTestimony(Testimony testimony) {
+        if (StringUtils.isBlank(testimony.getName())) {
+            return new ResponseEntity(new Message("El campo 'nombre' está vacío"),
+                    HttpStatus.BAD_REQUEST);
+        }
+        if (StringUtils.isBlank(testimony.getContent())) {
+            return new ResponseEntity(new Message("El campo 'content' está vacío"),
+                    HttpStatus.BAD_REQUEST);
+        }
+        testimonyRepository.save(testimony);
+        return ResponseEntity.ok("testimonio creado con éxito");
     }
 
     public Page<Testimony> getPageTestimony(Pageable pageable){
-        return testimonyRepository.findAll(pageable);
+        return testimonyRepository.findByDeletedFalse(pageable);
     }
 
-    public void softDelete(Testimony testimony) {
-        testimony.setDeleted(true);
-        testimonyRepository.save(testimony);
+    public ResponseEntity<?> updateTestimony(Testimony testimony, Long id) {
+        Optional<Testimony> testimonyAux = testimonyRepository.findByIdAndDeletedFalse(id);
+        if (testimonyAux.isEmpty()){
+            return new ResponseEntity(new Message("no se ha encontrado un testimonio con el id: "+id),
+                    HttpStatus.NOT_FOUND);
+        }
+        testimonyAux.get().setName(testimony.getName());
+        testimonyAux.get().setContent(testimony.getContent());
+        testimonyAux.get().setImage(testimony.getImage());
+        testimonyRepository.save(testimonyAux.get());
+        return ResponseEntity.ok("testimonio actualizado con exito");
     }
 
-    public Optional<Testimony> findById(Long id) {
-        return testimonyRepository.findByIdAndDeletedFalse(id);
+    public ResponseEntity deleteTestimony(Long id) {
+        Optional<Testimony> testimony = testimonyRepository.findByIdAndDeletedFalse(id);
+        if (testimony.isEmpty()) {
+            return new ResponseEntity("no se ha encontrado un testimonio con el id: "+id,HttpStatus.NOT_FOUND);
+        }
+        testimony.get().setDeleted(true);
+        testimonyRepository.save(testimony.get());
+        return new ResponseEntity("testimonio eliminado con exito",HttpStatus.ACCEPTED);
     }
 }

@@ -11,4 +11,5 @@ public interface SlideRepository extends JpaRepository<Slide, Long> {
 
     List<Slide> findByOrganizationIdOrderBySequence(Long id);
 
+    List<Slide> findAllByOrderBySequence();
 }
