@@ -65,7 +65,7 @@ public class SlideService {
     }
 
     public List<Slide> findSlidesByOrganization(Long id) {
-        return slideRepository.findByOrganizationIdOrderBySequence(id);
+        return slideRepository.findByOrganizationId_idOrderBySequence(id);
     }
     
     public ResponseEntity<Slide> updateSlide(Long id, Slide slideDetail){

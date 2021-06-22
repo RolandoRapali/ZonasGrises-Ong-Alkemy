@@ -9,7 +9,8 @@ import java.util.List;
 @Repository
 public interface SlideRepository extends JpaRepository<Slide, Long> {
 
-    List<Slide> findByOrganizationIdOrderBySequence(Long id);
+    List<Slide> findByOrganizationId_idOrderBySequence(Long id);
 
     List<Slide> findAllByOrderBySequence();
+
 }
