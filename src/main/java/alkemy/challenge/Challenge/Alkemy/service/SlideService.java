@@ -3,14 +3,17 @@ package alkemy.challenge.Challenge.Alkemy.service;
 import alkemy.challenge.Challenge.Alkemy.converter.Base64ConverterMultipartFile;
 import alkemy.challenge.Challenge.Alkemy.model.Slide;
 import alkemy.challenge.Challenge.Alkemy.repository.SlideRepository;
+import alkemy.challenge.Challenge.Alkemy.util.Message;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Base64.Decoder;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +35,7 @@ public class SlideService {
 
     
     public List<String> listSlides(){
-        List<Slide> listSlide = slideRepository.findAll();
+        List<Slide> listSlide = slideRepository.findAllByOrderBySequence();
         List<String> listImageSequence = new ArrayList<>();
         for (Slide s : listSlide) {
             listImageSequence.add(String.valueOf(s.getImageUrl()));
@@ -41,12 +44,12 @@ public class SlideService {
         return listImageSequence;
     }
     
-    public ResponseEntity<Slide> detailSlide(Long id) {
-        if (slideRepository.existsById(id)) {
-            Slide s = slideRepository.getById(id);
-            return ResponseEntity.ok(s);
+    public ResponseEntity<?> detailSlide(Long id) {
+        Optional<Slide> s = slideRepository.findById(id);
+        if (s.isEmpty()) {
+             return new ResponseEntity(new Message("No se ha encontrado el slide con el id: "+id), HttpStatus.NOT_FOUND);
         }
-        return (ResponseEntity<Slide>) ResponseEntity.notFound();
+        return ResponseEntity.ok(s.get());
     }
 
     /*Metodo para convertir archivo String a multipartFile para luego poder almacenarlo en amazonS3*/
@@ -62,7 +65,7 @@ public class SlideService {
     }
 
     public List<Slide> findSlidesByOrganization(Long id) {
-        return slideRepository.findByOrganizationIdOrderBySequence(id);
+        return slideRepository.findByOrganizationId_idOrderBySequence(id);
     }
     
     public ResponseEntity<Slide> updateSlide(Long id, Slide slideDetail){
@@ -80,12 +83,12 @@ public class SlideService {
         return (ResponseEntity<Slide>) ResponseEntity.notFound();
     }
 
-    public ResponseEntity<Slide> deletedSlide(Long id){
+    public ResponseEntity<?> deletedSlide(Long id){
         if(slideRepository.existsById(id)){
             Slide s = slideRepository.getById(id);
             slideRepository.delete(s);
-            return (ResponseEntity<Slide>) ResponseEntity.ok();
+            return new ResponseEntity(new Message("Se ha eliminado el slide correctamente"), HttpStatus.OK);
         }
-        return (ResponseEntity<Slide>) ResponseEntity.notFound();
+        return new ResponseEntity(new Message("No se ha encontrado el slide con el id: "+id), HttpStatus.NOT_FOUND);
     }
 }
