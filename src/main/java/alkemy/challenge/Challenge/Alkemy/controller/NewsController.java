@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,15 +20,18 @@ public class NewsController {
 
     @GetMapping
     public Page<News> listNews(@PageableDefault(size = 10, page = 0) Pageable pageable) {
-        Page<News> result = newsService.findAll(pageable);
-        return result;
+        return newsService.findAll(pageable);
     }
 
     //@PreAuthorize("hasRole(ROLE_ADMIN)") en un comienzo, esto lo filtro con los antMatcher
     @GetMapping("/{id}")
     public News bringNews(@PathVariable long id) {
-        News news = newsService.bringById(id);
-        return news;
+        return newsService.bringById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateNews(@PathVariable long id, @RequestBody News news) {
+        return newsService.update(news, id);
     }
 
     @PostMapping
@@ -39,7 +43,6 @@ public class NewsController {
     public String delete(@PathVariable("id") long id) {
         newsService.delete(id);
         return "redirect:/news";
-
     }
 
 }
