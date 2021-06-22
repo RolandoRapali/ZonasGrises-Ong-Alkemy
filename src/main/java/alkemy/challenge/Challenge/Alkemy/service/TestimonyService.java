@@ -19,8 +19,11 @@ public class TestimonyService {
         return testimonyRepository.save(testimony);
     }
 
-    public void testimonialUpdate(Testimony testimony) {
-        testimonyRepository.save(testimony);
+    public void testimonialUpdate(Testimony testimony, Testimony testimonyAux) {
+        testimonyAux.setName(testimony.getName());
+        testimonyAux.setContent(testimony.getContent());
+        testimonyAux.setImage(testimony.getImage());
+        testimonyRepository.save(testimonyAux);
     }
 
     public Page<Testimony> getPageTestimony(Pageable pageable){
