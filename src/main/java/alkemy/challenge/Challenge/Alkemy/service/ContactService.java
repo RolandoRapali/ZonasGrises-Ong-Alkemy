@@ -17,12 +17,6 @@ public class ContactService {
     private ContactRepository contactRepository;
 
     public ResponseEntity<?> createContact(Contact contact) {
-        if (contact.getName().isBlank() || contact.getName().isEmpty()) {
-            return new ResponseEntity(new Message("el campo del nombre no puede estar vacio"), HttpStatus.BAD_REQUEST);
-        }
-        if (contact.getEmail().isBlank() || contact.getEmail().isEmpty()) {
-            return new ResponseEntity(new Message("el campo del email no puede estar vacio"), HttpStatus.BAD_REQUEST);
-        }
         contactRepository.save(contact);
         return new ResponseEntity(new Message("el contacto ha sido creado con exito"), HttpStatus.OK);
     }

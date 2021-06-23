@@ -7,7 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -25,7 +25,7 @@ public class Member implements Serializable {
     @Column(name = "id_members")
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String name;
 
     private String facebookUrl;
@@ -34,7 +34,7 @@ public class Member implements Serializable {
 
     private String linkedinUrl;
 
-    @NotNull
+    @NotBlank
     private String image;
 
     private String description;

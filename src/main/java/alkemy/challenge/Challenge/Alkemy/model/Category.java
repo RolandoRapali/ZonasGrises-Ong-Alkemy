@@ -7,8 +7,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+
 
 @Data
 @AllArgsConstructor
@@ -24,6 +27,7 @@ public class Category implements Serializable {
     @Column(name = "id_categories")
     private Long id;
 
+    @NotBlank
     private String name;
 
     private String description;

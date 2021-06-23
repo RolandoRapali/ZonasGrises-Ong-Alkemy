@@ -3,6 +3,10 @@ package alkemy.challenge.Challenge.Alkemy.service;
 import alkemy.challenge.Challenge.Alkemy.model.Comment;
 import alkemy.challenge.Challenge.Alkemy.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,18 +25,28 @@ public class CommentService {
 
     //Listar todos los comentarios del id de post
     public List<Comment> listComments(Long comments_id) {
-        return commentRepository.findByNewsId(comments_id);
+        return commentRepository.findByNewsId_id(comments_id);
     }
 
     public Optional<Comment> findById(Long id) {
         return commentRepository.findById(id);
     }
 
-    public void update(Comment commentAct, Comment comment) {
-        commentAct.setBody(comment.getBody());
-        commentAct.setUserId(comment.getUserId());
-        commentAct.setNewsId(comment.getNewsId());
-        commentRepository.save(commentAct);
+    public ResponseEntity<?> update(Comment comment, Long id) {
+        Optional<Comment> commentAct = commentRepository.findById(id);
+        if (commentAct.isEmpty()) {
+            return new ResponseEntity("no se ha encontrado un comentario con el id: " + id, HttpStatus.NOT_FOUND);
+        }
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        if (!username.equals(commentAct.get().getUserId().getUsername()) || !commentAct.get().getUserId().getRole().getName().equals("ROLE_ADMIN")) {
+            return new ResponseEntity("el usuario no tiene permisos para editar el comentario" + id, HttpStatus.FORBIDDEN);
+        }
+        commentAct.get().setBody(comment.getBody());
+        commentAct.get().setUserId(comment.getUserId());
+        commentAct.get().setNewsId(comment.getNewsId());
+        commentRepository.save(commentAct.get());
+        return ResponseEntity.ok("comentario actualizado con éxito");
     }
 
     

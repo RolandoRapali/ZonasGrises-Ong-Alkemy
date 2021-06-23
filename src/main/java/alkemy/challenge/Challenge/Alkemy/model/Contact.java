@@ -4,12 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.io.Serializable;
 
 @Data
@@ -26,10 +23,13 @@ public class Contact implements Serializable {
     @Column(name = "id_contacts")
     private Long id;
 
+    @NotBlank
     private String name;
 
+    @Positive
     private String phone;
 
+    @NotBlank
     private String email;
 
     private String message;

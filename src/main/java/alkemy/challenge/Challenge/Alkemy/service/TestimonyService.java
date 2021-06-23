@@ -3,7 +3,6 @@ package alkemy.challenge.Challenge.Alkemy.service;
 import alkemy.challenge.Challenge.Alkemy.model.Testimony;
 import alkemy.challenge.Challenge.Alkemy.repository.TestimonyRepository;
 import alkemy.challenge.Challenge.Alkemy.util.Message;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,14 +19,6 @@ public class TestimonyService {
     private TestimonyRepository testimonyRepository;
 
     public ResponseEntity<?> createTestimony(Testimony testimony) {
-        if (StringUtils.isBlank(testimony.getName())) {
-            return new ResponseEntity(new Message("El campo 'nombre' está vacío"),
-                    HttpStatus.BAD_REQUEST);
-        }
-        if (StringUtils.isBlank(testimony.getContent())) {
-            return new ResponseEntity(new Message("El campo 'content' está vacío"),
-                    HttpStatus.BAD_REQUEST);
-        }
         testimonyRepository.save(testimony);
         return ResponseEntity.ok("testimonio creado con éxito");
     }
