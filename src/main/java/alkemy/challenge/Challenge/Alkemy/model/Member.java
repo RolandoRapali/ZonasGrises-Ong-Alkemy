@@ -46,4 +46,12 @@ public class Member implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    public Member(String name, String facebookUrl, String instagramUrl, String linkedinUrl, String image, String description) {
+        this.name = name;
+        this.facebookUrl = facebookUrl;
+        this.instagramUrl = instagramUrl;
+        this.linkedinUrl = linkedinUrl;
+        this.image = image;
+        this.description = description;
+    }
 }

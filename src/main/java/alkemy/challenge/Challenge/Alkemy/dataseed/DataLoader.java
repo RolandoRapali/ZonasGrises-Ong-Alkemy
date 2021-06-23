@@ -34,12 +34,16 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     SlideRepository slideRepository;
 
+    @Autowired
+    MemberRepository memberRepository;
+
     @Override
     public void run(String... args) throws Exception {
         loadActivitiesData();
         loadNewsData();
         loadUsersData();
         loadSlidesData();
+        loadMembersData();
     }
 
     private void loadActivitiesData() {
@@ -89,10 +93,14 @@ public class DataLoader implements CommandLineRunner {
         organizationRepository.save(organization1);
         organizationRepository.save(organization2);
         for (int i = 1; i <= 5; i++) {
-            /*slideRepository.save(new Slide( "imageUrl", "text", i, organization1));
-            slideRepository.save(new Slide("imageUrl", "text", i, organization2));*/
             slideRepository.save(new Slide( "imageUrl","text", i, organization1));
             slideRepository.save(new Slide("imageUrl","text", i, organization2));
+        }
+    }
+
+    private void loadMembersData(){
+        for (int i = 0; i < 10; i++) {
+            memberRepository.save(new Member("name","facebookUrl","instagramUrl","linkedinUrl","image","description"));
         }
     }
 
