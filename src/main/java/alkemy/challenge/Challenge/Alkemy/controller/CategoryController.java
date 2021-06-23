@@ -56,4 +56,12 @@ public class CategoryController {
     public Page<Category> listCategories(@PageableDefault(size = 10, page = 0) Pageable pageable) {
         return categoryService.findAll(pageable);//el listado debería ser solo de nombres de categorias, usando el metedo categoryService.listCategoriesByName();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        Optional<Category> category = categoryService.findById(id);
+        if (category.isEmpty()) return new ResponseEntity(new Message("no se ha encontrado una categoria con el id: "+id), HttpStatus.NOT_FOUND);
+        categoryService.delete(category.get());
+        return ResponseEntity.ok("News eliminada con exito");
+    }
 }

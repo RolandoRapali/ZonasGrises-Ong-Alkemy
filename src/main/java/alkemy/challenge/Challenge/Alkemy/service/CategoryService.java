@@ -32,7 +32,7 @@ public class CategoryService {
     }
 
     public Optional<Category> findById(Long id) {
-        return categoryRepository.findById(id);
+        return categoryRepository.findByIdAndDeletedFalse(id);
     }
 
     public Page<Category> findAll(Pageable pageable) {
@@ -55,5 +55,10 @@ public class CategoryService {
         categoryRepository.save(categoryAux);
         return new ResponseEntity(new Message("Categoria actualizada"),
                 HttpStatus.OK);
+    }
+
+    public void delete(Category category) {
+        category.setDeleted(true);
+        categoryRepository.save(category);
     }
 }
