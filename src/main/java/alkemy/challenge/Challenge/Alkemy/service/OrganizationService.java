@@ -27,9 +27,9 @@ public class OrganizationService {
         organization.setImage(organizationDto.getImage());
         if(organizationDto.getAdress().isBlank())organization.setAddress(organizationDto.getAdress());
         if(organizationDto.getPhone() > 0)organization.setPhone(organizationDto.getPhone());
-        if(organizationDto.getLinkdnUrl().isBlank()) organization.setLinkdnUrl(organizationDto.getLinkdnUrl());
-        if(organizationDto.getFacebookUrl().isBlank()) organization.setFacebookUrl(organizationDto.getFacebookUrl());
-        if(organizationDto.getInstagramUrl().isBlank()) organization.setInstagramUrl(organizationDto.getInstagramUrl());
+        if(organizationDto.getLinkdnUrl() != null && !organizationDto.getLinkdnUrl().isBlank()) organization.setLinkdnUrl(organizationDto.getLinkdnUrl());
+        if(organizationDto.getFacebookUrl() != null && !organizationDto.getFacebookUrl().isBlank()) organization.setFacebookUrl(organizationDto.getFacebookUrl());
+        if(organizationDto.getInstagramUrl() != null && !organizationDto.getInstagramUrl().isBlank()) organization.setInstagramUrl(organizationDto.getInstagramUrl());
         organizationRepository.save(organization);
         return new ResponseEntity(new Message("la organizacion ha sido modificada con exito."), HttpStatus.OK);
     }
