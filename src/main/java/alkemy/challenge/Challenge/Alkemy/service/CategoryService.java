@@ -31,6 +31,10 @@ public class CategoryService {
         return listCategoriesByname;
     }
 
+    public Optional<Category> findById(Long id) {
+        return categoryRepository.findById(id);
+    }
+
     public Page<Category> findAll(Pageable pageable) {
         return categoryRepository.findAll(pageable);
     }
@@ -44,16 +48,11 @@ public class CategoryService {
         }
     }
 
-    public ResponseEntity<?> update(Category category, Long id) {
-        Optional<Category> categoryAux = categoryRepository.findById(id);
-        if (categoryAux.isEmpty()) {
-            return new ResponseEntity(new Message("no se ha encontrado una categoria con el id: "+id),
-                    HttpStatus.NOT_FOUND);
-        }
-        categoryAux.get().setName(category.getName());
-        categoryAux.get().setDescription(category.getDescription());
-        categoryAux.get().setImage(category.getImage());
-        categoryRepository.save(categoryAux.get());
+    public ResponseEntity<?> update(Category category, Category categoryAux) {
+        categoryAux.setName(category.getName());
+        categoryAux.setDescription(category.getDescription());
+        categoryAux.setImage(category.getImage());
+        categoryRepository.save(categoryAux);
         return new ResponseEntity(new Message("Categoria actualizada"),
                 HttpStatus.OK);
     }

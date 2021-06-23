@@ -24,8 +24,9 @@ public class NewsService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public News bringById(long id) {
-        return newsRepository.findById(id);
+
+    public Optional<News> findById(long id) {
+        return newsRepository.findByIdAndDeletedFalse(id);
     }
 
     public News create(News news) {
@@ -49,13 +50,9 @@ public class NewsService {
     }
 
     @Transactional
-    public void delete(long id) {
-        boolean exists = newsRepository.existsById(id);
-        if (exists) {
-            newsRepository.deleteById(id);
-        } else {
-            throw new IllegalStateException("El id " + id + "que buscas no existe");
-        }
+    public void delete(News news) {
+        news.setDeleted(true);
+        newsRepository.save(news);
     }
 
     public Page<News> findAll(Pageable pageable) {

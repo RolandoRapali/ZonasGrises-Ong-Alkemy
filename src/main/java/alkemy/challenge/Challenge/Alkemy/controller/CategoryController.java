@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/categories")
@@ -21,7 +22,17 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @PostMapping()
+    @GetMapping("/{id}")
+    public ResponseEntity<?> showCategory(@PathVariable Long id){
+        Optional<Category> categoryAux = categoryService.findById(id);
+        if (categoryAux.isEmpty()) {
+            return new ResponseEntity(new Message("no se ha encontrado una categoria con el id: "+id),
+                    HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(categoryAux.get());
+    }
+
+    @PostMapping
     public ResponseEntity<?> addCategories(@RequestBody @Valid Category category) {
         categoryService.createCategories(category);
         return new ResponseEntity(new Message("categoria creada."), HttpStatus.OK);
@@ -33,7 +44,12 @@ public class CategoryController {
             return new ResponseEntity(new Message("Debe contener solo letras"),
                     HttpStatus.BAD_REQUEST);
         }
-        return categoryService.update(category, id);
+        Optional<Category> categoryAux = categoryService.findById(id);
+        if (categoryAux.isEmpty()) {
+            return new ResponseEntity(new Message("no se ha encontrado una categoria con el id: "+id),
+                    HttpStatus.NOT_FOUND);
+        }
+        return categoryService.update(category, categoryAux.get());
     }
 
     @GetMapping
