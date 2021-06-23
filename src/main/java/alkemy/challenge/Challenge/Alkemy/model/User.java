@@ -44,7 +44,7 @@ public class User implements Serializable, UserDetails {
     @NotNull
     private String password;
 
-    private String photo;
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "user_role")
@@ -59,12 +59,12 @@ public class User implements Serializable, UserDetails {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public User(String firstName, String lastName, String email, String password, String photo, Role role) {
+    public User(String firstName, String lastName, String email, String password, String image, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.photo = photo;
+        this.image = image;
         this.role = role;
     }
 
