@@ -21,26 +21,7 @@ public class OrganizationService {
         return organizationRepository.findById(id).get();
     }
 
-    public void update(OrganizationDto organizationDto) {
-
-    }
-
-    public ResponseEntity<?> updateOrganization(OrganizationDto organizationDto) {
-        if (organizationDto.getName().isEmpty() || organizationDto.getName().isBlank()) {
-            return new ResponseEntity(new Message("el campo de nombre no puede estar vacio"), HttpStatus.BAD_REQUEST);
-        }
-        if (organizationDto.getImage().isEmpty() || organizationDto.getImage().isBlank()) {
-            return new ResponseEntity(new Message("el campo de imagen no puede estar vacio"), HttpStatus.BAD_REQUEST);
-        }
-        if (organizationDto.getLinkdnUrl().isEmpty() || organizationDto.getLinkdnUrl().isBlank()) {
-            return new ResponseEntity(new Message("el campo de la url linkedn no puede estar vacio"), HttpStatus.BAD_REQUEST);
-        }
-        if (organizationDto.getFacebookUrl().isEmpty() || organizationDto.getFacebookUrl().isBlank()) {
-            return new ResponseEntity(new Message("el campo de la url de facebook no puede estar vacio"), HttpStatus.BAD_REQUEST);
-        }
-        if (organizationDto.getInstagramUrl().isEmpty() || organizationDto.getInstagramUrl().isBlank()) {
-            return new ResponseEntity(new Message("el campo de la url de instagram no puede estar vacio"), HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<?> update(OrganizationDto organizationDto) {
         Organization organization = organizationRepository.findById(1L).get();
         organization.setName(organizationDto.getName());
         organization.setImage(organizationDto.getImage());

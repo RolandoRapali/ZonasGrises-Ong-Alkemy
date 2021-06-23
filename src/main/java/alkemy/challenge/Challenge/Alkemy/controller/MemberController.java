@@ -1,7 +1,6 @@
 package alkemy.challenge.Challenge.Alkemy.controller;
 
 import alkemy.challenge.Challenge.Alkemy.model.Member;
-import alkemy.challenge.Challenge.Alkemy.service.ErrorHandlingService;
 import alkemy.challenge.Challenge.Alkemy.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,9 +18,6 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @Autowired
-    private ErrorHandlingService errorHandlingService;
-
     @GetMapping
     public Page<Member> listMembers(@PageableDefault(size = 10, page = 0) Pageable pageable) {
         return memberService.findAll(pageable);
@@ -36,7 +32,6 @@ public class MemberController {
     public ResponseEntity<?> deleteMember(@PathVariable Long id) {
         return memberService.delete(id);
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<?> editMember(@PathVariable Long id, @RequestBody @Valid Member member) {

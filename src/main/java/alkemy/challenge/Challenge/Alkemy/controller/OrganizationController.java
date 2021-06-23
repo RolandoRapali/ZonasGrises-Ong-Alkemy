@@ -32,9 +32,9 @@ public class OrganizationController {
         return organizationDtoConverter.convertEntityToGetOrganizationDto(organizationService.bringOrganization(id));
     }
 
-    @PostMapping("/public")
+    @PutMapping("/public")
     public ResponseEntity<?> modifyOrganization(@RequestBody @Valid OrganizationDto organizationDto) {
-        return organizationService.updateOrganization(organizationDto);
+        return organizationService.update(organizationDto);
     }
 
     @GetMapping("/{id}/slides")
