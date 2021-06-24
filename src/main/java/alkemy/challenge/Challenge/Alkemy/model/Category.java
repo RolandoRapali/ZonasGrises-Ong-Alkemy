@@ -32,7 +32,7 @@ public class Category implements Serializable {
 
     private String description;
 
-    private String images;
+    private String image;
 
     private boolean deleted = false;
 
@@ -41,9 +41,9 @@ public class Category implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public Category(String name, String description, String images) {
+    public Category(String name, String description, String image) {
         this.name = name;
         this.description = description;
-        this.images = images;
+        this.image = image;
     }
 }

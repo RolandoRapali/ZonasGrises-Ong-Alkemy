@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Service
@@ -18,21 +19,19 @@ public class ActivityService {
         return activityRepository.findById(id);
     }
 
-    public ResponseEntity<Activity> updateActivities(Long activitiesId, Activity activityDetails) {
-        if (activityRepository.existsById(activitiesId)) {
-            Activity activity = activityRepository.getById(activitiesId);
-            activity.setName(activityDetails.getName());
-            activity.setContent(activityDetails.getContent());
-            activity.setImage(activityDetails.getImage());
-            activity.setDeleted(activityDetails.isDeleted());
-            final Activity updateActivity = activityRepository.save(activity);
-            return ResponseEntity.ok(updateActivity);
-        } else {
-            return (ResponseEntity<Activity>) ResponseEntity.notFound();
-        }
+    public ResponseEntity<Activity> updateActivities(@Valid Activity activity, Activity activityAct) {
+            activityAct.setName(activity.getName());
+            activityAct.setContent(activity.getContent());
+            activityAct.setImage(activity.getImage());
+            activityRepository.save(activityAct);
+            return ResponseEntity.ok(activityAct);
     }
 
     public void save(Activity activity) {
         activityRepository.save(activity);
+    }
+
+    public Optional<Activity> findById(Long id) {
+        return activityRepository.findByIdAndDeletedFalse(id);
     }
 }

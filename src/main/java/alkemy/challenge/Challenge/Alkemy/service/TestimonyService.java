@@ -42,9 +42,7 @@ public class TestimonyService {
 
     public ResponseEntity deleteTestimony(Long id) {
         Optional<Testimony> testimony = testimonyRepository.findByIdAndDeletedFalse(id);
-        if (testimony.isEmpty()) {
-            return new ResponseEntity("no se ha encontrado un testimonio con el id: "+id,HttpStatus.NOT_FOUND);
-        }
+        if (testimony.isEmpty()) return new ResponseEntity("no se ha encontrado un testimonio con el id: "+id,HttpStatus.NOT_FOUND);
         testimony.get().setDeleted(true);
         testimonyRepository.save(testimony.get());
         return new ResponseEntity("testimonio eliminado con exito",HttpStatus.ACCEPTED);
