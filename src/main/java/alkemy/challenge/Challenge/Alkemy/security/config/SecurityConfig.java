@@ -44,16 +44,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    //Test
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/authenticate", "/auth/**", "/deny","/register","/").permitAll()
+                .antMatchers("/authenticate", "/auth/**", "/deny", "/register", "/", "/api/**", "/login").permitAll()
                 .antMatchers("/activities/**", "/categories/**", "/news/**", "/organization/**", "/user/**", "/slides/**", "/testimonials/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler()); //Handling error 403.
+                .anyRequest().authenticated().and().
+                formLogin().loginPage("/login").permitAll()
+                .and()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler());//Handling error 403.
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 

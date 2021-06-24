@@ -68,6 +68,7 @@ public class User implements Serializable, UserDetails {
         this.role = role;
     }
 
+
     //USER DETAILS
 
     @Override
