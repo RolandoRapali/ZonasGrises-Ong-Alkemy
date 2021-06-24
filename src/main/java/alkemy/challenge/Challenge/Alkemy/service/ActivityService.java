@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,5 +34,9 @@ public class ActivityService {
 
     public Optional<Activity> findById(Long id) {
         return activityRepository.findByIdAndDeletedFalse(id);
+    }
+
+    public List<Activity> findAll() {
+        return activityRepository.findAll();
     }
 }

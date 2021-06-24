@@ -7,12 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -49,7 +49,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //httpSecurity.csrf().disable().authorizeRequests().antMatchers("/").permitAll();
         httpSecurity.csrf().disable()
                 .authorizeRequests()
+                //ENDPOINTS PARA REGISTRO Y LOGIN
                 .antMatchers("/authenticate", "/auth/**", "/deny", "/register", "/", "/api/**", "/login").permitAll()
+                //ENDPOINTS PUBLICOS
+                .antMatchers(HttpMethod.GET,"/news", "/activities", "/organization/public", "/v2/api-docs").permitAll()
+                //ENDPOINTS DE USER
+                .antMatchers("/comments", "/comments/**").hasAnyRole("USER","ADMIN")
+                //ENDPOINTS DE ADMIN
                 .antMatchers("/activities/**", "/categories/**", "/news/**", "/organization/**", "/user/**", "/slides/**", "/testimonials/**").hasRole("ADMIN")
                 .anyRequest().authenticated().and().
                 formLogin().loginPage("/login").permitAll()

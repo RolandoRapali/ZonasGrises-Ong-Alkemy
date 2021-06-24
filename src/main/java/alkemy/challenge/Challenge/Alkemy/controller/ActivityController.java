@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @ApiIgnore
@@ -20,6 +21,11 @@ public class ActivityController {
 
     @Autowired
     private ActivityService activityService;
+
+    @GetMapping
+    public List<Activity> listActivities(){
+        return activityService.findAll();
+    }
 
     @PostMapping
     public ResponseEntity<Activity> createActivities(@RequestBody @Valid Activity activity) {
@@ -38,7 +44,7 @@ public class ActivityController {
         return activityService.updateActivities(activity, activityAct.get());
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping("/{id}")
     public Optional<Activity> getActivitiesByID(@PathVariable Long id) {
         Optional<Activity> a = activityService.getActivitiesByID(id);
         if (a.isEmpty()) {
