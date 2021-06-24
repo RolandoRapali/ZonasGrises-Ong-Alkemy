@@ -7,8 +7,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+
 
 @Data
 @AllArgsConstructor
@@ -24,11 +27,12 @@ public class Category implements Serializable {
     @Column(name = "id_categories")
     private Long id;
 
+    @NotBlank
     private String name;
 
     private String description;
 
-    private String images;
+    private String image;
 
     private boolean deleted = false;
 
@@ -37,9 +41,9 @@ public class Category implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public Category(String name, String description, String images) {
+    public Category(String name, String description, String image) {
         this.name = name;
         this.description = description;
-        this.images = images;
+        this.image = image;
     }
 }

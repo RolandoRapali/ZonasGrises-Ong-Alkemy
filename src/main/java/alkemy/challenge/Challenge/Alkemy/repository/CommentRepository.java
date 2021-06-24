@@ -9,7 +9,5 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    //Listar todos los comentarios de un post
-    List<Comment> findByNewsId(Long id);
-
+    List<Comment> findByNewsId_id(Long id);
 }

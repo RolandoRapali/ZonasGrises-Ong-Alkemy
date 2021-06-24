@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,12 +20,10 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
 
-    private static final String USER_NOT_FOUND = "User with email %s don't found";
-
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -41,8 +41,12 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        //return null;
-        return (UserDetails) userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
+        User user = userRepository.findByEmail(email);
+        if(user == null)
+        {
+            throw new UsernameNotFoundException(email);
+        }
+        return (UserDetails) userRepository.findByEmail(email);
     }
 
     public String saveUser(User user) throws UserAlreadyExistException {
@@ -51,7 +55,7 @@ public class UserService implements UserDetailsService {
         boolean userExist = false;
 
         if (userExist) {
-            throw new UserAlreadyExistException("The user already exists in the database");
+            throw new UserAlreadyExistException("El usuario ya existe en la Base de Datos");
         }
 
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
@@ -63,4 +67,7 @@ public class UserService implements UserDetailsService {
         return token;
     }
 
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 }

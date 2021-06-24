@@ -8,6 +8,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -25,20 +27,21 @@ public class Organization implements Serializable {
     @Column(name = "id_organizations")
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String name;
 
-    @NotNull
+    @NotBlank
     private String image;
 
     private String address;
 
+    @Positive
     private Integer phone;
 
-    @NotNull
+    @NotBlank
     private String email;
 
-    @NotNull
+    @NotBlank
     private String welcomeText;
 
     private String aboutUsText;

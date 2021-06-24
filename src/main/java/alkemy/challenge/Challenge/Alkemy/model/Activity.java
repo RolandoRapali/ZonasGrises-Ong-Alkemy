@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -27,10 +28,10 @@ public class Activity implements Serializable {
 
     private String name;
 
-    @NotNull
+    @NotBlank
     private String content;
 
-    @NotNull
+    @NotBlank
     private String image;
 
     @NotNull

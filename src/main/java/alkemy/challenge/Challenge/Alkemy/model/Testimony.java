@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -25,7 +26,7 @@ public class Testimony implements Serializable {
     @Column(name = "id_testimonials")
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String name;
 
     private String image;

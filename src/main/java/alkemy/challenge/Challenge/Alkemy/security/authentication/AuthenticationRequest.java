@@ -1,8 +1,15 @@
 package alkemy.challenge.Challenge.Alkemy.security.authentication;
 
+import alkemy.challenge.Challenge.Alkemy.model.User;
+import lombok.Data;
+
+
 import java.io.Serializable;
 
+@Data
 public class AuthenticationRequest implements Serializable {
+
+    private User user;
 
     private String username;
     private String password;

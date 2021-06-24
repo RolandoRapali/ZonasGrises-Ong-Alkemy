@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -22,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService myUserDetailsService;
+
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
@@ -43,24 +46,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable().authorizeRequests().antMatchers("/").permitAll();
-        /*httpSecurity.csrf().disable()
+        //httpSecurity.csrf().disable().authorizeRequests().antMatchers("/").permitAll();
+        httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/authenticate", "/auth/**", "/deny").permitAll()
-                //ADMIN
+                //ENDPOINTS PARA REGISTRO Y LOGIN
+                .antMatchers("/authenticate", "/auth/**", "/deny", "/register", "/", "/api/**", "/login").permitAll()
+                //ENDPOINTS PUBLICOS
+                .antMatchers(HttpMethod.GET,"/news", "/activities", "/organization/public", "/v2/api-docs").permitAll()
+                //ENDPOINTS DE USER
+                .antMatchers("/comments", "/comments/**").hasAnyRole("USER","ADMIN")
+                //ENDPOINTS DE ADMIN
                 .antMatchers("/activities/**", "/categories/**", "/news/**", "/organization/**", "/user/**", "/slides/**", "/testimonials/**").hasRole("ADMIN")
-                //USER Y ADMIN
-                .antMatchers().hasAnyRole("USER", "ADMIN")
-                //authenticated users
-                .anyRequest().authenticated()
+                .anyRequest().authenticated().and().
+                formLogin().loginPage("/login").permitAll()
                 .and()
-                .formLogin()
-                //exceptions
-                //.and().exceptionHandling()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler()); //Handling error 403.
-        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);*/
-
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler());//Handling error 403.
+        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
 }

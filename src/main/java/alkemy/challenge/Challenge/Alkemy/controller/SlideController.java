@@ -5,9 +5,12 @@ import alkemy.challenge.Challenge.Alkemy.service.SlideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
+
 import javax.validation.Valid;
 import java.util.List;
 
+@ApiIgnore
 @RestController
 @RequestMapping("/slides")
 public class SlideController {
@@ -16,17 +19,17 @@ public class SlideController {
     private SlideService slideService;
     
     /*listado de slides con la imagen y el orden del mismo*/
-    @GetMapping("/")
+    @GetMapping
     public List<String> listSlides(){
         return slideService.listSlides();
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Slide> detailSlide(@PathVariable(value = "id") Long id){
+    public ResponseEntity<?> detailSlide(@PathVariable(value = "id") Long id){
         return slideService.detailSlide(id);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Slide> createSlide(@RequestBody @Valid Slide slide, byte[] file){
         slideService.createSlide(file, slide);
         return ResponseEntity.ok(slide);
@@ -39,7 +42,7 @@ public class SlideController {
             }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Slide> deleteSlide(@PathVariable(value = "id") Long id){
+    public ResponseEntity<?> deleteSlide(@PathVariable(value = "id") Long id){
         return slideService.deletedSlide(id);
     }
 }
