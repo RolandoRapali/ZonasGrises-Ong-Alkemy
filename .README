@@ -1,8 +1,8 @@
 ONG Team 39 - Java
 usuarios:
 
-    usuario: user@alkemy.com contraseña: user
-    usuario: admin@alkemy.com contraseña: admin
+    usuario: user@alkemy.com contraseña: password
+    usuario: admin@alkemy.com contraseña: password
 
     usuario: user[0-9]@alkemy.com contraseña: user
     usuario: admin[0-9]@alkemy.com contraseña: admin
