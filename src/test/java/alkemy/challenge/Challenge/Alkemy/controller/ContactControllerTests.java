@@ -19,7 +19,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,7 +96,7 @@ class ContactControllerTests {
         Mockito.when(contactService.bringAllContacts()).thenReturn(listContacts);
         mockMvc.perform(get("/contacts"))
                 .andDo(print())
-                .andExpect(redirectedUrl("/deny"));/// Levantar falta de autorizacion
+                .andExpect(redirectedUrl("/deny"));
 
     }
 
@@ -162,6 +161,6 @@ class ContactControllerTests {
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
 
-         Assert.assertEquals("", mvcResult.getResponse().getContentAsString());
+        Assert.assertEquals("", mvcResult.getResponse().getContentAsString());
     }
 }

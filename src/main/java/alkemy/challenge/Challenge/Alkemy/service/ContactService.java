@@ -2,7 +2,6 @@ package alkemy.challenge.Challenge.Alkemy.service;
 
 import alkemy.challenge.Challenge.Alkemy.model.Contact;
 import alkemy.challenge.Challenge.Alkemy.repository.ContactRepository;
-import alkemy.challenge.Challenge.Alkemy.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
