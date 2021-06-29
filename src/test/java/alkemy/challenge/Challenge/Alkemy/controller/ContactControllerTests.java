@@ -5,7 +5,6 @@ import alkemy.challenge.Challenge.Alkemy.service.ContactService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -157,15 +156,12 @@ class ContactControllerTests {
     @Test
     @WithMockUser(username = "admin@alkemy.com", roles = {"ADMIN"})
     public void listContactDoesntExists() throws Exception {
-        Contact contact = null;
-        given(contactService.listContact(contact.getId()))
-                .willReturn(contact);
 
         MvcResult mvcResult = this.mockMvc.perform(get("/backoffice/contacts/{id}", 25)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
 
-         Assertions.assertEquals("", mvcResult.getResponse().getContentAsString());
+         Assert.assertEquals("", mvcResult.getResponse().getContentAsString());
     }
 }
