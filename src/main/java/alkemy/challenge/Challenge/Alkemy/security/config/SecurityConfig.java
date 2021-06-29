@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 @EnableWebSecurity
 @Configuration
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
@@ -43,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
+    
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         //httpSecurity.csrf().disable().authorizeRequests().antMatchers("/").permitAll();
