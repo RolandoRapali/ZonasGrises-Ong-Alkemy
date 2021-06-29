@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //ENDPOINTS DE USER
                 .antMatchers("/comments", "/comments/**").hasAnyRole("USER","ADMIN")
                 //ENDPOINTS DE ADMIN
-                .antMatchers("/activities/**", "/categories/**", "/news/**", "/organization/**", "/user/**", "/slides/**", "/testimonials/**").hasRole("ADMIN")
+                .antMatchers("/activities/**", "/categories/**", "/news/**", "/organization/**", "/user/**", "/slides/**", "/testimonials/**", "/members/**").hasRole("ADMIN")
                 .anyRequest().authenticated().and().
                 formLogin().loginPage("/login").permitAll()
                 .and()
