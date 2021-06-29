@@ -45,6 +45,12 @@ public class News implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    public News(String name, String image, String content) {
+        this.name = name;
+        this.image = image;
+        this.content = content;
+    }
+
     public News(String name, String image, String content, Category categoryId) {
         this.name = name;
         this.image = image;
