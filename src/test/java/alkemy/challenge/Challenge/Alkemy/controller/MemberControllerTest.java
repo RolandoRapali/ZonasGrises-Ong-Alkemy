@@ -121,6 +121,19 @@ class MemberControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin@alkemy.com", roles = {"ADMIN"})
+    void editMemberNotFound() throws Exception {
+        Member member = new Member("name","facebookUrl","instagramUrl","linkedinUrl","image","description");
+        memberService.create(member);
+        Member memberEdit = new Member("name2","facebookUrl2","instagramUrl2","linkedinUrl2","image2","description2");
+        mockMvc.perform(put("/members/{id}", member.getId()+1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapToJson(memberEdit)))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     @WithMockUser(username = "user@alkemy.com", roles = {"USER"})
     void editMemberUser() throws Exception {
         Member member = new Member("name","facebookUrl","instagramUrl","linkedinUrl","image","description");
