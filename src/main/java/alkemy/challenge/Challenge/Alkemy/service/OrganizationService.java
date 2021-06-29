@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class OrganizationService {
@@ -18,7 +20,7 @@ public class OrganizationService {
     private OrganizationRepository organizationRepository;
 
     public Organization bringOrganization(Long id) {
-        return organizationRepository.findById(id).get();
+        return organizationRepository.findById(id).orElse(null);
     }
 
     public ResponseEntity<?> update(OrganizationDto organizationDto) {
@@ -33,4 +35,22 @@ public class OrganizationService {
         organizationRepository.save(organization);
         return new ResponseEntity(new Message("la organizacion ha sido modificada con exito."), HttpStatus.OK);
     }
+
+    public ResponseEntity<?> updateOng(Organization organization, Long id){
+
+        Optional<Organization> organizationAux = organizationRepository.findOrganizationById(id);
+
+        if (organizationAux.isEmpty()){
+            return new ResponseEntity(new Message("no se ha encontrado un testimonio con el id: "+id),
+                    HttpStatus.NOT_FOUND);
+        }
+
+        organizationAux.get().setName(organization.getName());
+        organizationAux.get().setAboutUsText(organization.getAboutUsText());
+        organizationAux.get().setImage(organization.getImage());
+        organizationAux.get().setAddress(organization.getAddress());
+        return ResponseEntity.ok("Organización actualizada!");
+    }
+
+
 }
