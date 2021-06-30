@@ -9,6 +9,6 @@ import springfox.documentation.annotations.ApiIgnore;
 public class IndexController {
     @RequestMapping("/")
     String index(){
-        return "index";
+        return "index2";
     }
 }

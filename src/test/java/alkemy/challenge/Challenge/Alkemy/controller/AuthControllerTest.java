@@ -55,7 +55,7 @@ class AuthControllerTest {
         /*AuthenticationRequest userLoginData = new AuthenticationRequest("test@alkemy.com","password");*/
         String jsonBody = "{ \"username\":\"admin@alkemy.com\", \"password\":\"password\"}";
         mockMvc.perform(post("/authenticate")
-                .content(jsonBody)
+                .content(jsonBody)//no loguea con usuario recien creado**
                 .contentType(MediaType.APPLICATION_JSON)
                 /*.content(mapToJson(userLoginData)))*/
                 /*.content("{ "username": "test@alkemy.com", "password": "password" }")*/
@@ -64,7 +64,6 @@ class AuthControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
-
     }
 
     @Test

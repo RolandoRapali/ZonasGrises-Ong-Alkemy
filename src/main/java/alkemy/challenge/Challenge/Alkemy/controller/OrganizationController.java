@@ -32,8 +32,14 @@ public class OrganizationController {
     @Autowired
     private SlideService slideService;
 
+    @GetMapping("/public")
+    public ResponseEntity<?> bringOrganization() {
+        return ResponseEntity.ok(organizationService.bringOrganization(1L));
+        // organizationDtoConverter.convertEntityToGetOrganizationDto(organizationService.bringOrganization(id));
+    }
+
     @GetMapping("/public/{id}")
-    public ResponseEntity<?> bringOrganization(@PathVariable Long id) {
+    public ResponseEntity<?> bringOrganizationById(@PathVariable Long id) {
         Organization organization = organizationService.bringOrganization(id);
         if (organization == null) {
             return new ResponseEntity(new Message("No se ha encontrado una organización con el ID:  "+id),

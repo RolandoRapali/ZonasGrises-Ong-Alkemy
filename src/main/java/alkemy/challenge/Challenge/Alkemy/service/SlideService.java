@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +33,7 @@ public class SlideService {
     private AmazonClientService amazonClientService;
 
     
-    public List<String> listSlides(){
+    /*public List<String> listSlides(){
         List<Slide> listSlide = slideRepository.findAllByOrderBySequence();
         List<String> listImageSequence = new ArrayList<>();
         for (Slide s : listSlide) {
@@ -42,8 +41,12 @@ public class SlideService {
             listImageSequence.add(String.valueOf(s.getSequence()));
         }
         return listImageSequence;
+    }*/
+
+    public List<Slide> listSlides(){
+        return slideRepository.findAllByOrderBySequence();
     }
-    
+
     public ResponseEntity<?> detailSlide(Long id) {
         Optional<Slide> s = slideRepository.findById(id);
         if (s.isEmpty()) {

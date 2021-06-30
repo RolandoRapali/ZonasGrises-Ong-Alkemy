@@ -42,4 +42,9 @@ public class Testimony implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    public Testimony(String name, String image, String content) {
+        this.name = name;
+        this.image = image;
+        this.content = content;
+    }
 }

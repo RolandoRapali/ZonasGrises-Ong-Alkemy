@@ -40,6 +40,12 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     CommentRepository commentRepository;
 
+    @Autowired
+    TestimonyRepository testimonyRepository;
+
+    @Autowired
+    ContactRepository contactRepository;
+
     @Override
     public void run(String... args) throws Exception {
         loadActivitiesData();
@@ -48,6 +54,8 @@ public class DataLoader implements CommandLineRunner {
         loadSlidesData();
         loadMembersData();
         loadCommentsData();
+        loadTestimonialsData();
+        loadContactsData();
     }
 
     private void loadActivitiesData() {
@@ -89,12 +97,9 @@ public class DataLoader implements CommandLineRunner {
 
     private void loadSlidesData() {
         Organization organization1 = new Organization("name", "image", "address", 123, "email", "welcomeText", "aboutUsText");
-        Organization organization2 = new Organization("name", "image", "address", 123, "email", "welcomeText", "aboutUsText");
         organizationRepository.save(organization1);
-        organizationRepository.save(organization2);
         for (int i = 1; i <= 5; i++) {
-            slideRepository.save(new Slide( "imageUrl","text", i, organization1));
-            slideRepository.save(new Slide("imageUrl","text", i, organization2));
+            slideRepository.save(new Slide( "imageUrl","Texto de ejemplo nro: "+i, i, organization1));
         }
     }
 
@@ -111,5 +116,18 @@ public class DataLoader implements CommandLineRunner {
             }
         }
     }
+
+    private void loadTestimonialsData() {
+        for (int i = 0; i < 5 ; i++) {
+                testimonyRepository.save(new Testimony("name","image","content"));
+        }
+    }
+
+    private void loadContactsData() {
+        for (int i = 0; i < 3 ; i++) {
+            contactRepository.save(new Contact("name",123456789,"email","message"));
+        }
+    }
+
 
 }
