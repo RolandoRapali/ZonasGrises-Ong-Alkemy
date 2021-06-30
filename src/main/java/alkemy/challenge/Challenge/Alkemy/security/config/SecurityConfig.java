@@ -47,7 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        //httpSecurity.csrf().disable().authorizeRequests().antMatchers("/").permitAll();
         httpSecurity.csrf().disable()
                 .authorizeRequests()
                 //ENDPOINTS PARA REGISTRO Y LOGIN
@@ -60,9 +59,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/activities/**", "/categories/**", "/news/**", "/organization/**", "/user/**", "/slides/**", "/testimonials/**", "/members/**").hasRole("ADMIN")
                 .anyRequest().authenticated().and().
                 formLogin().loginPage("/login").permitAll()
+                .and().logout().deleteCookies("JSESSIONID").logoutUrl("/logout")
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler());//Handling error 403.
-        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); //JWT Filter
     }
 
 }
