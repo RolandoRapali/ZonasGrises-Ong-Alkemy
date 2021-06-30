@@ -55,7 +55,7 @@ public class MemberService {
             return new ResponseEntity("no se ha encontrado un miembro con el id: "+id,HttpStatus.NOT_FOUND);
         }
         memberRepository.delete(member.get());
-        return new ResponseEntity("miembro eliminado con exito",HttpStatus.ACCEPTED);
+        return ResponseEntity.ok("miembro eliminado con exito");
     }
 
     public ResponseEntity<?> update(Member member, Long id) {

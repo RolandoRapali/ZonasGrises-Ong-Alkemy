@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -59,4 +60,7 @@ public class NewsService {
         return newsRepository.findAll(pageable);
     }
 
+    public List<News> findAllNews() {
+        return newsRepository.findAll();
+    }
 }

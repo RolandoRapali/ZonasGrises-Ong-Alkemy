@@ -69,4 +69,7 @@ public class Organization implements Serializable {
         this.welcomeText = welcomeText;
         this.aboutUsText = aboutUsText;
     }
+
+    public Organization(long Id, String ongName, String image, String address, int i, String s, String welcomeText, String aboutUsText) {
+    }
 }

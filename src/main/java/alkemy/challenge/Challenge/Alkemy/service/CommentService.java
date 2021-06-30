@@ -21,8 +21,8 @@ public class CommentService {
     }
 
     //Listar todos los comentarios del id de post
-    public List<Comment> listComments(Long comments_id) {
-        return commentRepository.findByNewsId_id(comments_id);
+    public List<Comment> listComments(Long news_id) {
+        return commentRepository.findByNewsId_id(news_id);
     }
 
     public Optional<Comment> findById(Long id) {

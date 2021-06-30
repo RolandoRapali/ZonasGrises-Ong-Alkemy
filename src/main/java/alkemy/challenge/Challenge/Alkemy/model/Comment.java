@@ -30,4 +30,10 @@ public class Comment implements Serializable {
     @ManyToOne
     @JoinColumn(name = "comments_news")
     private News newsId;
+
+    public Comment(String body, User userId, News newsId) {
+        this.body = body;
+        this.userId = userId;
+        this.newsId = newsId;
+    }
 }
