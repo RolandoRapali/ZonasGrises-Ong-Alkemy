@@ -37,6 +37,9 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     MemberRepository memberRepository;
 
+    @Autowired
+    CommentRepository commentRepository;
+
     @Override
     public void run(String... args) throws Exception {
         loadActivitiesData();
@@ -44,6 +47,7 @@ public class DataLoader implements CommandLineRunner {
         loadUsersData();
         loadSlidesData();
         loadMembersData();
+        loadCommentsData();
     }
 
     private void loadActivitiesData() {
@@ -63,15 +67,11 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void loadNewsData() {
-        Category category1 = new Category("name", "description", "imagePath");
-        Category category2 = new Category("name", "description", "imagePath");
+        Category category1 = new Category("news","news","image");
         categoryRepository.save(category1);
-        categoryRepository.save(category2);
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             newsRepository.save(new News("name", "imagePath", "content", category1));
-            newsRepository.save(new News("name", "imagePath", "content", category2));
         }
-
     }
 
     private void loadUsersData() {
@@ -101,6 +101,14 @@ public class DataLoader implements CommandLineRunner {
     private void loadMembersData(){
         for (int i = 0; i < 10; i++) {
             memberRepository.save(new Member("name","facebookUrl","instagramUrl","linkedinUrl","image","description"));
+        }
+    }
+
+    private void loadCommentsData() {
+        for (int i = 1; i <= 5 ; i++) {
+            for (int j = 0; j < 2; j++) {
+                commentRepository.save(new Comment("body", (userRepository.findById(1L).get()), newsRepository.findById(i)));
+            }
         }
     }
 
