@@ -2,7 +2,6 @@ package alkemy.challenge.Challenge.Alkemy.service;
 
 import alkemy.challenge.Challenge.Alkemy.model.Contact;
 import alkemy.challenge.Challenge.Alkemy.repository.ContactRepository;
-import alkemy.challenge.Challenge.Alkemy.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +17,14 @@ public class ContactService {
 
     public ResponseEntity<?> createContact(Contact contact) {
         contactRepository.save(contact);
-        return new ResponseEntity(new Message("el contacto ha sido creado con exito"), HttpStatus.OK);
+        return new ResponseEntity("el contacto ha sido creado con exito", HttpStatus.OK);
     }
 
     public List<Contact> bringAllContacts() {
-        return contactRepository.findAll();
-
+        return contactRepository.findByDeletedFalse();
     }
 
-    public List<Contact> listContact(Long id) {
+    public Contact listContact(Long id) {
         return contactRepository.findAllById(id);
     }
 }

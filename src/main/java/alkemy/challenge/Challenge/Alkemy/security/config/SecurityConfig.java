@@ -54,9 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //ENDPOINTS PUBLICOS
                 .antMatchers(HttpMethod.GET,"/news", "/activities", "/organization/public", "/v2/api-docs").permitAll()
                 //ENDPOINTS DE USER
-                .antMatchers("/comments", "/comments/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/comments", "/comments/**", "/backoffice/**").hasAnyRole("USER","ADMIN")
+                .antMatchers(HttpMethod.POST, "/contacts").hasAnyRole("USER","ADMIN")
                 //ENDPOINTS DE ADMIN
-                .antMatchers("/activities/**", "/categories/**", "/news/**", "/organization/**", "/user/**", "/slides/**", "/testimonials/**", "/members/**").hasRole("ADMIN")
+                .antMatchers("/activities/**", "/categories/**", "/news/**", "/organization/**", "/user/**", "/slides/**", "/testimonials/**", "/members/**", "/contacts").hasRole("ADMIN")
                 .anyRequest().authenticated().and().
                 formLogin().loginPage("/login").permitAll()
                 .and().logout().deleteCookies("JSESSIONID").logoutUrl("/logout")
