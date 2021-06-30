@@ -19,6 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,14 +57,14 @@ class ContactControllerTests {
         listContacts.add(new Contact(
                 1L,
                 "Pepe",
-                "44443322",
+                44443322,
                 "Pepe@alkemy.com",
                 "contacto de mi casa",
                 false));
         listContacts.add(new Contact(
                 2L,
                 "Juan",
-                "44445555",
+                44445555,
                 "Juan@alkemy.com",
                 "contacto de mi celular",
                 true));
@@ -82,14 +83,14 @@ class ContactControllerTests {
         listContacts.add(new Contact(
                 1L,
                 "Pepe",
-                "44443322",
+                44443322,
                 "Pepe@alkemy.com",
                 "contacto de mi casa",
                 false));
         listContacts.add(new Contact(
                 2L,
                 "Juan",
-                "44445555",
+                44445555,
                 "Juan@alkemy.com",
                 "contacto de mi celular",
                 true));
@@ -106,7 +107,7 @@ class ContactControllerTests {
         Contact contact = new Contact(
                 3L,
                 "Pedro",
-                "44445555",
+                44445555,
                 "Pedrito@alkemy.com",
                 "creo el contacto",
                 false);
@@ -123,7 +124,7 @@ class ContactControllerTests {
         Contact contact = new Contact(
                 3L,
                 "",
-                "44445555",
+                44445555,
                 "JuanCarlos@alkemy.com",
                 "creo el contacto",
                 false);
@@ -140,7 +141,7 @@ class ContactControllerTests {
         Contact contact = new Contact(
                 4L,
                 "Federico",
-                "12345678",
+                12345678,
                 "ElFede@alkemy.com",
                 "El Fede",
                 false);
