@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //ENDPOINTS PARA REGISTRO Y LOGIN
                 .antMatchers("/authenticate", "/auth/**", "/deny", "/register", "/", "/api/**", "/login").permitAll()
                 //ENDPOINTS PUBLICOS
-                .antMatchers(HttpMethod.GET,"/news", "/activities", "/organization/public", "/v2/api-docs").permitAll()
+                .antMatchers(HttpMethod.GET,"/news", "/activities", "/organization/public", "/v2/api-docs", "/returnme", "/slides").permitAll()
                 //ENDPOINTS DE USER
                 .antMatchers("/comments", "/comments/**", "/backoffice/**").hasAnyRole("USER","ADMIN")
                 .antMatchers(HttpMethod.POST, "/contacts").hasAnyRole("USER","ADMIN")

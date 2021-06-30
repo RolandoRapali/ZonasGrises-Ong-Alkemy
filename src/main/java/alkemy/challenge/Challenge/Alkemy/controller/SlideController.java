@@ -20,7 +20,7 @@ public class SlideController {
     
     /*listado de slides con la imagen y el orden del mismo*/
     @GetMapping
-    public List<String> listSlides(){
+    public List<Slide> listSlides(){
         return slideService.listSlides();
     }
     

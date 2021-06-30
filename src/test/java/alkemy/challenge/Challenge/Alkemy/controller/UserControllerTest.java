@@ -1,7 +1,9 @@
 package alkemy.challenge.Challenge.Alkemy.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import alkemy.challenge.Challenge.Alkemy.model.User;
+import alkemy.challenge.Challenge.Alkemy.repository.RoleRepository;
+import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
+import alkemy.challenge.Challenge.Alkemy.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -12,23 +14,20 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
-import alkemy.challenge.Challenge.Alkemy.model.User;
-import alkemy.challenge.Challenge.Alkemy.repository.RoleRepository;
-import alkemy.challenge.Challenge.Alkemy.repository.UserRepository;
-import alkemy.challenge.Challenge.Alkemy.service.UserService;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -50,6 +49,9 @@ public class UserControllerTest {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -89,15 +91,16 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
     }
 
-    public User createUser(){
-        return userRepository.save(new User("firstName", "lastName", "admin@alkemy.com","password", "photo", roleRepository.getById(2L)));
-
+    User createTestUser(String email, String password) throws Exception{
+        User user = new User("firstName", "lastName", email, bCryptPasswordEncoder.encode(password), "photo", null);
+        userService.saveUser(user);
+        return user;
     }
 
     @Test
     @WithMockUser(username = "admin@alkemy.com", roles = {"ADMIN"})
     void deleteUserByIdTest1()throws Exception{
-        User user = createUser();
+        User user = createTestUser("test@alkemy.com","password");
         user.setDeleted(false);
         
         Mockito.when(userController.deleteUserById(user.getId())).thenReturn(new ResponseEntity(HttpStatus.OK));

@@ -27,7 +27,7 @@ public class Contact implements Serializable {
     private String name;
 
     @Positive
-    private String phone;
+    private Integer phone;
 
     @NotBlank
     private String email;
@@ -35,4 +35,11 @@ public class Contact implements Serializable {
     private String message;
 
     private boolean deleted = false;
+
+    public Contact(String name, Integer phone, String email, String message) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.message = message;
+    }
 }
